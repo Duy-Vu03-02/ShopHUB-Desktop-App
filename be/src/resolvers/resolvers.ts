@@ -1,5 +1,5 @@
 import { getProductById } from "../services/ProductServices";
-import { login } from "../services/UserServices";
+import { login, register } from "../services/UserServices";
 
 export const resolvers = {
   Query: {
@@ -22,5 +22,11 @@ export const resolvers = {
     // message: async (parent: any, args: any) => {
     //   return;
     // },
+  },
+
+  Mutation: {
+    createUser: async (parent: any, args: any) => {
+      return await register(args);
+    },
   },
 };

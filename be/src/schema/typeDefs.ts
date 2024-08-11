@@ -3,6 +3,7 @@ import { gql } from "apollo-server-express";
 export const typeDefs = gql`
   type User {
     id: ID
+    phone: String
     username: String
     email: String
     password: String
@@ -15,6 +16,7 @@ export const typeDefs = gql`
   type Shopper {
     id: ID
     username: String
+    phone: String
     email: String
     password: String
     avatar: String
@@ -68,11 +70,26 @@ export const typeDefs = gql`
 
   ### ROOT TYPE
   type Query {
-    user: User
-    shopper: Shopper
-    product: Product
+    user(phone: String, email: String, password: String!): User
+    shopper(phone: String, email: String, password: String!): Shopper
+    product(id: ID!): Product
     notification: Notification
     conversation: Conversation
     message: Message
+  }
+
+  type Mutation {
+    createUser(
+      phone: String
+      username: String
+      email: String
+      password: String!
+    ): User
+    shopper(
+      phone: String
+      username: String
+      email: String
+      password: String!
+    ): Shopper
   }
 `;

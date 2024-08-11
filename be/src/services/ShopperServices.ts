@@ -23,7 +23,7 @@ export const loginShop = async (args: any) => {
   }
 };
 
-export const register = async (args: any) => {
+export const registerShop = async (args: any) => {
   try {
     const { phone, username, email, password } = args;
     if (username && password && (phone || email)) {

@@ -2,9 +2,9 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import helmet from "helmet";
+// import helmet from "helmet";
 import { config } from "dotenv";
-import { connectDB } from "./config/db";
+import { connectDB } from "./config/db/index";
 import { typeDefs } from "./schema/typeDefs";
 import { resolvers } from "./resolvers/resolvers";
 
@@ -20,7 +20,7 @@ const startApollo = async () => {
       credentials: true,
     })
   );
-  app.use(helmet());
+  // app.use(helmet());
 
   const server = new ApolloServer({
     typeDefs,
@@ -30,7 +30,7 @@ const startApollo = async () => {
   server.applyMiddleware({ app });
 
   app.listen(8080, () => {
-    console.log("Server path: http://localhost:8080", server.graphqlPath);
+    console.log("Server path: http://localhost:8080" + server.graphqlPath);
   });
 };
 
