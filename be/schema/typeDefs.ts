@@ -12,6 +12,16 @@ export const typeDefs = gql`
     payment: [ID]
   }
 
+  type Shopper {
+    id: ID
+    username: String
+    email: String
+    password: String
+    avatar: String
+    address: Address
+    payment: [ID]
+  }
+
   type Product {
     id: ID
     name: String
@@ -59,6 +69,7 @@ export const typeDefs = gql`
   ### ROOT TYPE
   type Query {
     user: User
+    shopper: Shopper
     product: Product
     notification: Notification
     conversation: Conversation

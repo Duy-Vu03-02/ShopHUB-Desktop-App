@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const reviewSchema = new Schema(
   {
+    idUser: { type: Schema.Types.ObjectId, ref: "User" },
     idProduct: {
       type: Schema.Types.ObjectId,
       ref: "Product",

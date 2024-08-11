@@ -6,6 +6,7 @@ import helmet from "helmet";
 import { config } from "dotenv";
 import { connectDB } from "./config/db";
 import { typeDefs } from "./schema/typeDefs";
+import { resolvers } from "./resolvers/resolvers";
 
 const startApollo = async () => {
   const app = express();
