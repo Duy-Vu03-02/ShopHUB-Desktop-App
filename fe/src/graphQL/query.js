@@ -9,3 +9,19 @@ export const login = gql`
     }
   }
 `;
+
+export const getProduct = gql`
+  query detailProduct($id: ID!) {
+    product(id: $id) {
+      idShop
+      name
+      description
+      price
+      images
+      color
+      size
+      type
+      total
+    }
+  }
+`;

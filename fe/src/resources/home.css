@@ -11,7 +11,7 @@ a {
   text-decoration: none;
   color: black;
 }
-a:hover {
+.home_site_nav a:hover {
   color: #fe4300;
 }
 .home_container {
