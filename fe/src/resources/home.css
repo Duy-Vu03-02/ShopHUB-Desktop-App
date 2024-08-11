@@ -35,6 +35,14 @@ a:hover {
 .home_nav_right_detail:hover {
   color: #fe4300;
 }
+.home_banner_container button {
+  font-size: 15px;
+  cursor: pointer;
+  background-color: #f5f5f5;
+}
+.home_banner_container button:hover {
+  color: #fe9e4a;
+}
 .home_nav_right {
   display: flex;
 }

@@ -33,6 +33,11 @@ body {
 button,
 a:hover,
 a:focus {
+  border: none;
+  outline: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
   /* cursor: url("./assets/cursor/hover.png"), pointer !important; */
 }
 ul,

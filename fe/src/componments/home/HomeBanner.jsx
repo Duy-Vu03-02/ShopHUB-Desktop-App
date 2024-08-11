@@ -35,21 +35,31 @@ function HomeBanner() {
       <div className="home_banner_container">
         <div className="home_site_nav">
           <div className="home_nav_left">
-            <div className="home_nav_left_detail">Tải ứng dụng</div>
             <div className="home_nav_left_detail">
-              Trở thành người bán Shop Hub
+              <button>Tải ứng dụng</button>
             </div>
-            <div className="home_nav_left_detail">Đăng ký miễn phí</div>
+            <div className="home_nav_left_detail">
+              <button>Trở thành người bán Shop Hub</button>
+            </div>
+            <div className="home_nav_left_detail">
+              <button>Đăng ký miễn phí</button>
+            </div>
           </div>
           <div className="home_nav_right">
             <div className="home_nav_right_detail">
-              <Link to="/login" onClick={handleLogout}>
-                Đăng xuất
-              </Link>
+              <button>
+                <Link to="/login" onClick={handleLogout}>
+                  Đăng xuất
+                </Link>
+              </button>
             </div>
 
-            <div className="home_nav_right_detail">Thông báo</div>
-            <div className="home_nav_right_detail">Hỗ trợ</div>
+            <div className="home_nav_right_detail">
+              <button>Thông báo</button>
+            </div>
+            <div className="home_nav_right_detail">
+              <button>Hỗ trợ</button>
+            </div>
           </div>
         </div>
         <div className="home_banner_nav">
@@ -68,7 +78,7 @@ function HomeBanner() {
         <div className="home_logo_search">
           <img src="" alt="" />
           <span>
-            <h3>Shop Hub</h3>
+            <h3 style={{ fontFamily: "inherit" }}>Shop HUB</h3>
           </span>
         </div>
         <div className="home_search_bar">

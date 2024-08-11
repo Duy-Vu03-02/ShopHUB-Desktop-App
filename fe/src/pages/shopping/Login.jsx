@@ -1,49 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "../../resources/login.css";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import icon from "../../assets/login/tiktok.jpg";
 import logoFace from "../../assets/login/facebook.png";
 import logoGoogle from "../../assets/login/google.png";
+import { useApolloClient } from "@apollo/client";
+import { login } from "../../graphQL/query";
+import { UserContext } from "../../context/userContext";
 
 function Login() {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [pass, setPass] = useState("");
-
-  useEffect(() => {
-    async function fetchData() {
-      const dataSessionToken = await JSON.parse(
-        localStorage.getItem("shop-hub-user")
-      );
-      if (dataSessionToken) {
-        try {
-          const type = "SESSIONTOKEN";
-          const data = {
-            type,
-            dataSessionToken,
-          };
-          await axios
-            .post("http://127.0.0.1:8080/auth/login", data)
-            .then((response) => {
-              if (response.status === 200) {
-                localStorage.setItem(
-                  "shop-hub-user",
-                  JSON.stringify(response.data)
-                );
-                navigate("/");
-              }
-            })
-            .catch((err) => {
-              console.error(err);
-            });
-        } catch (err) {
-          console.error(err);
-        }
-      }
-    }
-    fetchData();
-  }, []);
+  const client = useApolloClient();
+  const { setUserData } = useContext(UserContext);
 
   function handleChangeName(e) {
     setAccount(e.target.value);
@@ -51,26 +21,29 @@ function Login() {
   function handleChangePass(e) {
     setPass(e.target.value);
   }
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const type = "LOGIN";
-    const data = {
-      type,
-      phone: account,
-      password: pass,
-    };
-    await axios
-      .post("http://127.0.0.1:8080/auth/login", data)
-      .then((response) => {
-        if (response.status === 200) {
-          localStorage.setItem("shop-hub-user", JSON.stringify(response.data));
-          navigate("/");
-        }
-      })
-      .catch((err) => {
-        setAccount("");
-        console.error(err);
+    try {
+      e.preventDefault();
+      const { data, errors } = await client.query({
+        query: login,
+        variables: { phone: account, password: pass },
       });
+
+      if (errors) {
+        console.error(errors);
+      } else {
+        if (data.user !== null) {
+          setUserData(data.user);
+          navigate("/");
+          return;
+        } else {
+          return;
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
