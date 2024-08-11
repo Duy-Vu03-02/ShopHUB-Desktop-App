@@ -129,10 +129,14 @@ span h3 {
   border-radius: 10px;
   width: 1150px;
   margin: auto;
+  padding: 10px 0;
   margin-top: 20px;
 }
-.home_name_type {
-  padding: 20px;
+.home_name_type h3 {
+  margin: 0 10px 10px 10px;
+  padding: 10px 20px;
+  background-color: #ffeee8;
+  border-radius: 20px;
 }
 .home_content {
   display: flex;
@@ -144,7 +148,7 @@ span h3 {
 .home_detail_list {
   display: none;
   width: 400px;
-  height: 620px;
+  height: 604px;
   flex-direction: column;
   cursor: default;
 }
@@ -163,7 +167,7 @@ span h3 {
   list-style: none;
   margin: 20px;
   padding: 5px;
-  width: 200px;
+  width: 170px;
 }
 .home_type_detail:hover {
   background-color: rgb(232 215 194);
@@ -195,13 +199,7 @@ span h3 {
   display: flex;
   margin: auto;
 }
-.home_default li {
-  list-style-type: none;
-  margin: 10px;
-  padding: 10px;
-  width: 180px;
-  cursor: pointer;
-}
+
 .home_default li:hover {
   box-shadow: 0px 0px 10px;
   outline: 5px solid white;
@@ -239,12 +237,12 @@ span h3 {
   height: 620px;
   display: flex;
   position: absolute;
-  left: 250px;
+  left: 210px;
 }
 .home_like {
   display: flex;
   position: absolute;
-  left: 258px;
+  left: 200px;
 }
 .home_likes ul {
   margin: 20px 0;
@@ -327,4 +325,57 @@ span h3 {
 .home_foter .home_keep_track span,
 .home_foter .home_keep_track img {
   cursor: pointer;
+}
+.item-product-default {
+  box-shadow: 0px 0px 5px rgb(219, 214, 214);
+  list-style-type: none;
+  margin: 10px;
+  padding: 10px;
+  width: 195px !important;
+  cursor: pointer;
+}
+.item-product-default:hover {
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px;
+  outline: 5px solid white;
+  background-color: white;
+}
+.item-product-default img {
+  display: block;
+  margin: auto;
+  width: 170px;
+  height: 170px;
+  border-radius: 5px;
+}
+.item-product-default p {
+  font-weight: 400;
+  font-family: Helvetica;
+  margin: 0 5px !important;
+}
+.item-product-default .item-product-desription {
+  margin-top: 10px !important;
+  height: 30px;
+  margin: auto;
+  font-size: 13px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-product-default .item-product-price {
+  color: #ff4f00;
+  display: block;
+  font-size: 15px;
+  min-width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.item-product-default .item-product-slod {
+  color: #7589a3;
+  font-size: 11px;
+  line-height: 19px;
+  min-width: 69px;
+  /* text-align: right; */
 }

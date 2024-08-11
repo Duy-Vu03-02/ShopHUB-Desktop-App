@@ -7,16 +7,14 @@ import set5 from "../../assets/product/set5.avif";
 import set6 from "../../assets/product/set6.avif";
 import set7 from "../../assets/product/set7.avif";
 import set8 from "../../assets/product/set8.avif";
-import set9 from "../../assets/product/set9.avif";
-import set10 from "../../assets/product/set10.avif";
-import flyers from "../../assets/product/flyers.avif";
+import RenderProduct from "../product/RenderProduct";
 
 export default function HomeType() {
   const data1 = {
     id: set1,
     description: "Đầm cổ vuông thiết kế hình nấm cổ tích",
-    price: "380. 000",
-    sold: 257,
+    price: "380.000.000",
+    sold: 2570,
   };
   const data2 = {
     id: set2,
@@ -38,7 +36,7 @@ export default function HomeType() {
   };
   const data5 = {
     id: set5,
-    description: "Disney trang phục Pháp tình yêu đầu tiên",
+    description: "Disney trang phục Disney trang phục Pháp tình yêu đầu tiên",
     price: "780. 000",
     sold: 503,
   };
@@ -60,27 +58,9 @@ export default function HomeType() {
     price: "380. 000",
     sold: 257,
   };
-  const data9 = {
-    id: set9,
-    description: "Plus size nữ phong cách Hàn Quốc ",
-    price: "380. 000",
-    sold: 257,
-  };
-  const data10 = {
-    id: set10,
-    description: "Thời trang giản dị mùa thu",
-    price: "380. 000",
-    sold: 257,
-  };
 
-  const sets = [data1, data2, data3, data4];
-  const sets1 = [data5, data6, data7, data8];
-  const sets5 = [data2, data3, data4];
+  const sets = [data1, data2, data3, data4, data5, data6, data7, data8];
   const sets3 = [data5, data6, data7];
-  const sets4 = [data1, data2, data8];
-  const products1 = [...sets, data9];
-  const products2 = [...sets1, data10];
-  const empty = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   const option = [
     {
@@ -230,9 +210,11 @@ export default function HomeType() {
   ];
   return (
     <div className="home_type">
-      <h3 className="home_name_type">Phân loại</h3>
+      <div className="home_name_type">
+        <h3>Phân loại</h3>
+      </div>
       <div className="home_content">
-        <div className="home_optinal_type">
+        <div className="home_optinal_type" style={{ minWidth: "230px" }}>
           <ul>
             {option.map((element, index) => (
               <li key={index}>
@@ -245,38 +227,7 @@ export default function HomeType() {
                     ))}
                     <hr />
                     <div className="home_like">
-                      <div className="home_default home_likes">
-                        <ul>
-                          {sets3.map((set, index) => (
-                            <li key={index}>
-                              <img src={set.id} alt="product" />
-                              <p className="home_desription">
-                                {set.description}
-                              </p>
-                              <br />
-                              <div className="home_sub">
-                                <p className="home_price">${set.price}</p>
-                                <p className="hone_slod">Đã bán {set.sold}</p>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                        <ul>
-                          {sets3.map((set, index) => (
-                            <li key={index}>
-                              <img src={set.id} alt="product" />
-                              <p className="home_desription">
-                                {set.description}
-                              </p>
-                              <br />
-                              <div className="home_sub">
-                                <p className="home_price">${set.price}</p>
-                                <p className="hone_slod">Đã bán {set.sold}</p>
-                              </div>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
+                      <RenderProduct data={sets} />
                     </div>
                   </ul>
                 </div>
@@ -285,32 +236,7 @@ export default function HomeType() {
           </ul>
         </div>
         <div className="home_default">
-          <ul>
-            {sets.map((set, index) => (
-              <li key={index}>
-                <img src={set.id} alt="product" />
-                <p className="home_desription">{set.description}</p>
-                <br />
-                <div className="home_sub">
-                  <p className="home_price">${set.price}</p>
-                  <p className="hone_slod">Đã bán {set.sold}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-          <ul>
-            {sets1.map((set, index) => (
-              <li key={index}>
-                <img src={set.id} alt="product" />
-                <p className="home_desription">{set.description}</p>
-                <br />
-                <div className="home_sub">
-                  <p className="home_price">${set.price}</p>
-                  <p className="hone_slod">Đã bán {set.sold}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
+          <RenderProduct data={sets} />
         </div>
       </div>
     </div>

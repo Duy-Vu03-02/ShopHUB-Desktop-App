@@ -45,6 +45,8 @@ li {
   list-style-type: none;
   text-overflow: ellipsis;
   overflow: hidden;
+  margin: 0;
+  padding: 0;
 }
 .uppercase {
   text-transform: uppercase;

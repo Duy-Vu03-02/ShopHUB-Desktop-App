@@ -13,6 +13,7 @@ import set9 from "../../assets/product/set9.avif";
 import set10 from "../../assets/product/set10.avif";
 import flyers from "../../assets/product/flyers.avif";
 import HomeType from "./HomeType";
+import RenderProduct from "../product/RenderProduct";
 
 function HomeContainer() {
   const data1 = {
@@ -39,51 +40,19 @@ function HomeContainer() {
     price: "280. 000",
     sold: 217,
   };
-  const data5 = {
-    id: set5,
-    description: "Disney trang phục Pháp tình yêu đầu tiên",
-    price: "780. 000",
-    sold: 503,
-  };
-  const data6 = {
-    id: set6,
-    description: "Đầm Pháp nhỏ Puff Puff",
-    price: "980. 000",
-    sold: 808,
-  };
-  const data7 = {
-    id: set7,
-    description: "Đầm nữ mùa hè tay phồng",
-    price: "380. 000",
-    sold: 257,
-  };
-  const data8 = {
-    id: set8,
-    description: "Bộ đồ màu đen kiểu Pháp Hepburn",
-    price: "380. 000",
-    sold: 257,
-  };
-  const data9 = {
-    id: set9,
-    description: "Plus size nữ phong cách Hàn Quốc ",
-    price: "380. 000",
-    sold: 257,
-  };
-  const data10 = {
-    id: set10,
-    description: "Thời trang giản dị mùa thu",
-    price: "380. 000",
-    sold: 257,
-  };
 
-  const sets = [data1, data2, data3, data4];
-  const sets1 = [data5, data6, data7, data8];
-  const sets5 = [data2, data3, data4];
-  const sets3 = [data5, data6, data7];
-  const sets4 = [data1, data2, data8];
-  const products1 = [...sets, data9];
-  const products2 = [...sets1, data10];
-  const empty = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const products1 = [
+    data1,
+    data2,
+    data3,
+    data4,
+    data1,
+    data1,
+    data2,
+    data3,
+    data4,
+    data1,
+  ];
   return (
     <>
       <div className="home_container_type">
@@ -94,35 +63,12 @@ function HomeContainer() {
         <img src={flyers} alt="foter" />
       </div>
       <div className="home_maybe_like">
-        <h2>Có thể bạn cũng thích</h2>
+        <div className="home_name_type">
+          <h3>Có thể bạn cũng thích</h3>
+        </div>
         <div className="home_like_product">
           <div className="home_default  home_products">
-            <ul>
-              {products1.map((set, index) => (
-                <li key={index}>
-                  <img src={set.id} alt="product" />
-                  <p className="home_desription">{set.description}</p>
-                  <br />
-                  <div className="home_sub">
-                    <p className="home_price">${set.price}</p>
-                    <p className="hone_slod">Đã bán {set.sold}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <ul>
-              {products2.map((set, index) => (
-                <li key={index}>
-                  <img src={set.id} alt="product" />
-                  <p className="home_desription">{set.description}</p>
-                  <br />
-                  <div className="home_sub">
-                    <p className="home_price">${set.price}</p>
-                    <p className="hone_slod">Đã bán {set.sold}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <RenderProduct data={products1} />
           </div>
         </div>
       </div>

@@ -48,7 +48,7 @@ function HomeBanner() {
           <div className="home_nav_right">
             <div className="home_nav_right_detail">
               <button>
-                <Link to="/login" onClick={handleLogout}>
+                <Link to="/" onClick={handleLogout}>
                   Đăng xuất
                 </Link>
               </button>
