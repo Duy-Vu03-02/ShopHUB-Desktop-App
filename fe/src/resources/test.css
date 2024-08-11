@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+}
+.switch-toggle {
+  width: 90px;
+  height: 50px;
+  appearance: none;
+  background-color: #83d8ff;
+  border-radius: 26px;
+  position: relative;
+  cursor: pointer;
+}
+
+.switch-toggle::before {
+  content: "";
+  width: 44px;
+  height: 44px;
+  position: absolute;
+  background-color: #efe2bf;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition: 0.4s;
+}
+.switch-toggle:checked {
+  background-color: #5c7;
+}
+.switch-toggle:checked:before {
+  left: 43px;
+}

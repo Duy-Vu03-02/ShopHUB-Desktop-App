@@ -1,0 +1,6 @@
+#CA - https
+.cert/
+#env
+.env/
+#node
+node_modules/
