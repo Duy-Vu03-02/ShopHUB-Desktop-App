@@ -3,39 +3,15 @@ import { ProductModel } from "../config/model/ProductModel";
 
 export const createProduct = async (args: any) => {
   try {
-    const {
-      idShop,
-      name,
-      description,
-      price,
-      images,
-      color,
-      size,
-      type,
-      total,
-    } = args;
-
-    if (
-      idShop &&
-      name &&
-      description &&
-      price &&
-      images &&
-      color &&
-      size &&
-      type &&
-      total
-    ) {
+    const { idShop, name, description, price, type, quantity } = args;
+    if (idShop && name && description && price && quantity && type) {
       const newProduct = await ProductModel.create({
         idShop,
         name,
         description,
         price,
-        images,
-        color,
-        size,
         type,
-        total,
+        quantity,
       });
       await newProduct.save();
       return newProduct;
@@ -48,9 +24,10 @@ export const createProduct = async (args: any) => {
 
 export const getProductById = async (args: any) => {
   try {
-    const { idProduct } = args;
-    if (idProduct) {
-      const product = await ProductModel.findById(idProduct);
+    const { id } = args;
+    console.log(id);
+    if (id) {
+      const product = await ProductModel.findById(id);
       if (product) return product;
     }
     return;
@@ -68,9 +45,8 @@ export const updateProduct = async (args: any) => {
       price,
       images,
       color,
-      size,
+      quannity,
       type,
-      total,
     } = args;
 
     let fieldUpdate: any = {};
@@ -79,9 +55,8 @@ export const updateProduct = async (args: any) => {
     fieldUpdate["price"] = price ? price : undefined;
     fieldUpdate["images"] = images ? images : undefined;
     fieldUpdate["color"] = color?.trim();
-    fieldUpdate["size"] = size?.trim();
     fieldUpdate["type"] = type?.trim();
-    fieldUpdate["total"] = total ? total : undefined;
+    fieldUpdate["quannity"] = quannity ? quannity : undefined;
 
     if (Object.keys(fieldUpdate).length > 0) {
       const update = await ProductModel.findByIdAndUpdate(

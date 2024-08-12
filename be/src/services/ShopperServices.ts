@@ -25,8 +25,8 @@ export const loginShop = async (args: any) => {
 
 export const registerShop = async (args: any) => {
   try {
-    const { phone, username, email, password } = args;
-    if (username && password && (phone || email)) {
+    const { phone, shopName, email, password } = args;
+    if (shopName && password && (phone || email)) {
       const user = await ShopperModel.findOne({
         $or: [{ phone: phone?.trim(), email: email?.trim() }],
       });
@@ -36,7 +36,7 @@ export const registerShop = async (args: any) => {
         const newUser = await ShopperModel.create({
           ...(phone && { phone: phone.trim() }),
           ...(email && { email: email.trim() }),
-          username: username.trim(),
+          shopName: shopName.trim(),
           password: password.trim(),
         });
         await newUser.save();

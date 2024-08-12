@@ -4,10 +4,11 @@ import { useApolloClient } from "@apollo/client";
 import { getDetailProduct } from "../../graphQL/query";
 import { ProductContext } from "../../context/productContext";
 
-export default function RenderProduct({ data }) {
+export default function RenderProducts({ data }) {
   const client = useApolloClient();
   const navigate = useNavigate();
   const { setProductData } = useContext(ProductContext);
+  console.log(data);
 
   const handleShowProduct = async ({ id }) => {
     try {
@@ -45,8 +46,8 @@ export default function RenderProduct({ data }) {
           className="item-product-default"
           onClick={() => handleShowProduct(set.id)}
         >
-          <img src={set.id} alt="product" />
-          <p className="item-product-desription">{set.description}</p>
+          <img src={set.quantity[0].images[0]} alt="img-product" />
+          <p className="item-product-desription">{set.name}</p>
           <div
             style={{
               display: "flex",

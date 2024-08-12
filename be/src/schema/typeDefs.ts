@@ -15,7 +15,7 @@ export const typeDefs = gql`
 
   type Shopper {
     id: ID
-    username: String
+    shopName: String
     phone: String
     email: String
     password: String
@@ -26,14 +26,15 @@ export const typeDefs = gql`
 
   type Product {
     id: ID
+    idShop: ID
     name: String
     description: String
     price: Float
-    imges: [String]
-    color: [String]
-    type: [String]
-    total: Int
+    type: String
     review: [Review]
+    quantity: [Quantity]
+    sold: Int
+    totalStar: Float
   }
 
   type Notification {
@@ -45,7 +46,7 @@ export const typeDefs = gql`
 
   type Conversation {
     id: ID
-    member: [ID]
+    members: [ID]
     lastMessage: String
   }
 
@@ -53,7 +54,18 @@ export const typeDefs = gql`
     id: ID
     idConversation: ID
     sender: ID
-    img: [String]
+    images: [String]
+  }
+
+  type Quantity {
+    images: [String]
+    color: String
+    sizes: [Size]
+  }
+
+  type Size {
+    size: String
+    total: Int
   }
 
   type Review {
@@ -68,14 +80,25 @@ export const typeDefs = gql`
     country: String
   }
 
+  ### INPUT
+  input QuantityInput {
+    color: String!
+    sizes: [SizeInput]!
+    images: [String]
+  }
+  input SizeInput {
+    size: String!
+    total: Int!
+  }
+
   ### ROOT TYPE
   type Query {
     user(phone: String, email: String, password: String!): User
     shopper(phone: String, email: String, password: String!): Shopper
     product(id: ID!): Product
-    notification: Notification
-    conversation: Conversation
-    message: Message
+    notification(id: ID!): Notification
+    conversation(id: ID!): Conversation
+    message(id: ID!): Message
   }
 
   type Mutation {
@@ -85,11 +108,21 @@ export const typeDefs = gql`
       email: String
       password: String!
     ): User
-    shopper(
+
+    createShopper(
       phone: String
-      username: String
+      shopName: String!
       email: String
       password: String!
     ): Shopper
+
+    createProduct(
+      idShop: ID!
+      name: String!
+      description: String!
+      price: Float!
+      type: String
+      quantity: [QuantityInput]!
+    ): Product
   }
 `;

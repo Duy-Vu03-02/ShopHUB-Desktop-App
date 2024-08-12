@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useContext, useState } from "react";
 import set1 from "../../assets/product/set1.avif";
 import set2 from "../../assets/product/set2.avif";
 import set3 from "../../assets/product/set3.avif";
@@ -8,8 +8,43 @@ import set6 from "../../assets/product/set6.avif";
 import set7 from "../../assets/product/set7.avif";
 import set8 from "../../assets/product/set8.avif";
 import RenderProduct from "../product/RenderProduct";
+import RenderProducts from "../product/RenderProducts";
+import { useApolloClient } from "@apollo/client";
+import { getDefaultProduct } from "../../graphQL/query";
+import { ProductContext } from "../../context/productContext";
 
 export default function HomeType() {
+  const client = useApolloClient();
+  const { setListProducts } = useContext(ProductContext);
+  const [productFetch, setProductFetch] = useState([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        const { data, errors } = await client.query({
+          query: getDefaultProduct,
+          variables: { id: "66b9d641d335616dc9c49483" },
+        });
+
+        if (errors) {
+          console.error(errors);
+        } else {
+          setListProducts((prevState) => {
+            if (prevState?.length < 0) {
+              return data.product;
+            } else {
+              return [...prevState, data.product];
+            }
+          });
+          setProductFetch([data.product]);
+        }
+        return;
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetch();
+  }, []);
   const data1 = {
     id: set1,
     description: "Đầm cổ vuông thiết kế hình nấm cổ tích",
@@ -236,7 +271,7 @@ export default function HomeType() {
           </ul>
         </div>
         <div className="home_default">
-          <RenderProduct data={sets} />
+          <RenderProducts data={productFetch} />
         </div>
       </div>
     </div>

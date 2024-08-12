@@ -10,7 +10,7 @@ export const login = gql`
   }
 `;
 
-export const getProduct = gql`
+export const getDetailProduct = gql`
   query detailProduct($id: ID!) {
     product(id: $id) {
       idShop
@@ -18,10 +18,30 @@ export const getProduct = gql`
       description
       price
       images
-      color
-      size
       type
-      total
+    }
+  }
+`;
+
+export const getDefaultProduct = gql`
+  query defaultProduct($id: ID!) {
+    product(id: $id) {
+      id
+      name
+      quantity {
+        images
+      }
+      price
+      totalStar
+      sold
+    }
+  }
+`;
+
+export const deltProduct = gql`
+  mutation delProduct($id: ID!) {
+    product(id: $id) {
+      id
     }
   }
 `;

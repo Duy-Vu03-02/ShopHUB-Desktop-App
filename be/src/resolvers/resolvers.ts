@@ -1,4 +1,5 @@
-import { getProductById } from "../services/ProductServices";
+import { registerShop } from "../services/ShopperServices";
+import { createProduct, getProductById } from "../services/ProductServices";
 import { login, register } from "../services/UserServices";
 
 export const resolvers = {
@@ -27,6 +28,14 @@ export const resolvers = {
   Mutation: {
     createUser: async (parent: any, args: any) => {
       return await register(args);
+    },
+
+    createShopper: async (parent: any, args: any) => {
+      return await registerShop(args);
+    },
+
+    createProduct: async (parent: any, args: any) => {
+      return await createProduct(args);
     },
   },
 };
