@@ -2,7 +2,7 @@ import React, { useState, useEffect, Compo } from "react";
 import "../../../resources/sellerChanel.css";
 import close from "../../../assets/icon/close.svg";
 
-function BoxChoie({ handleChangeDataSentCompoment }) {
+const BoxChoie = React.memo(({ handleChangeDataSentCompoment }) => {
   const [dislayConponment, setDisplayComponment] = useState("");
   const [optionFirst, setOptionFirst] = useState("");
   const [optionSecond, setOptionSecond] = useState("");
@@ -205,7 +205,7 @@ function BoxChoie({ handleChangeDataSentCompoment }) {
       </div>
     </>
   );
-}
+});
 
 function OToXeMay({ handleSetOptionSecond }) {
   return (

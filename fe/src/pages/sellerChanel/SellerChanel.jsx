@@ -15,7 +15,7 @@ import arrowMore from "../../assets/icon/arrowMore.svg";
 import MenuProduct from "../../componments/sellerChanel/MenuProduct";
 import DetailProduct from "../../componments/sellerChanel/DetailProduct";
 
-function SellerChanel() {
+const SellerChanel = React.memo(() => {
   const data = {
     username: "ngu thu han",
   };
@@ -161,6 +161,6 @@ function SellerChanel() {
       </div>
     </>
   );
-}
+});
 
 export default SellerChanel;

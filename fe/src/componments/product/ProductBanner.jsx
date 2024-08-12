@@ -6,7 +6,7 @@ import button_next from "../../assets/home/button_next.png";
 import button_back from "../../assets/home/button_back.png";
 import camera from "../../assets/home/camera.png";
 
-function ProdcutBanner() {
+const ProdcutBanner = React.memo(() => {
   const [dataSearch, setDataSearch] = useState("");
   function handleChangSearch(e) {
     setDataSearch(e.target.value);
@@ -62,6 +62,6 @@ function ProdcutBanner() {
       </div>
     </>
   );
-}
+});
 
 export default ProdcutBanner;

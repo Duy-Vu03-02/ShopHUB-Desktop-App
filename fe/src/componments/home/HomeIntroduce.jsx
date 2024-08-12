@@ -24,7 +24,7 @@ import appstore from "../../assets/home/appstore.png";
 import appget from "../../assets/home/appget.png";
 import googleplay from "../../assets/home/googleplay.png";
 
-function HomeIntroduce() {
+const HomeIntroduce = React.memo(() => {
   return (
     <>
       <div className="home_content_foter">
@@ -120,6 +120,5 @@ function HomeIntroduce() {
       </div>
     </>
   );
-}
-
+});
 export default HomeIntroduce;

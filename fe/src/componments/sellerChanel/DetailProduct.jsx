@@ -2,7 +2,7 @@ import React from "react";
 import DetailProductListAll from "./detailProductList/DetailProductListAll";
 import MenuProduct from "./MenuProduct";
 
-function DetailProduct() {
+const DetailProduct = React.memo(() => {
   return (
     <>
       <div className="container_detial_product">
@@ -15,6 +15,6 @@ function DetailProduct() {
       </div>
     </>
   );
-}
+});
 
 export default DetailProduct;

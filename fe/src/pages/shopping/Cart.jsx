@@ -6,7 +6,7 @@ import shopicon from "../../assets/icon/store.svg";
 import chaticon from "../../assets/icon/chat.svg";
 import sell from "../../assets/cart/sell.svg";
 
-function Cart() {
+const Cart = React.memo(() => {
   const listsProduct = [
     {
       id: "1",
@@ -218,6 +218,5 @@ function Cart() {
       </div>
     </>
   );
-}
-
+});
 export default Cart;

@@ -2,7 +2,7 @@ import React from "react";
 import star from "../../assets/icon/rating_star.svg";
 import avatarcmt from "../../assets/shop/avatarcmt.png";
 
-function ProductReview() {
+const ProductReview = React.memo(() => {
   const data = {
     avgStar: "4.8",
     sumStar5: "207",
@@ -125,5 +125,5 @@ function ProductReview() {
       </div>
     </>
   );
-}
+});
 export default ProductReview;

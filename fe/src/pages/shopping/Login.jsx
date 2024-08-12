@@ -9,7 +9,7 @@ import { login } from "../../graphQL/query";
 import { UserContext } from "../../context/userContext";
 import Loadding from "../Loadding";
 
-function Login() {
+const Login = React.memo(() => {
   const navigate = useNavigate();
   const [account, setAccount] = useState("");
   const [pass, setPass] = useState("");
@@ -130,6 +130,6 @@ function Login() {
       )}
     </>
   );
-}
+});
 
 export default Login;

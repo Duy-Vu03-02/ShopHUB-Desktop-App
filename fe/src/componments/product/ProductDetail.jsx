@@ -9,7 +9,7 @@ import description3 from "../../assets/product/description3.jfif";
 import description4 from "../../assets/product/description4.jfif";
 import description5 from "../../assets/product/description5.jfif";
 
-function ProductDetail() {
+const ProductDetail = React.memo(() => {
   const data = {
     name: "Ngu Thư Hân",
     ratting: 15,
@@ -161,6 +161,5 @@ function ProductDetail() {
       </div>
     </>
   );
-}
-
+});
 export default ProductDetail;

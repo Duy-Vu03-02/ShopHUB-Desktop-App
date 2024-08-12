@@ -5,7 +5,7 @@ import HomeType from "./HomeType";
 import RenderProducts from "../product/RenderProducts";
 import { ProductContext } from "../../context/productContext";
 
-function HomeContainer() {
+const HomeContainer = React.memo(() => {
   const { listProducts } = useContext(ProductContext);
 
   return (
@@ -31,6 +31,5 @@ function HomeContainer() {
       </div>
     </>
   );
-}
-
+});
 export default HomeContainer;

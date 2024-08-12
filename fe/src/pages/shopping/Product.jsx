@@ -7,7 +7,7 @@ import ProdcutBanner from "../../componments/product/ProductBanner";
 import HomeIntroduce from "../../componments/home/HomeIntroduce";
 import "../../resources/product.css";
 
-function Product() {
+const Product = React.memo(() => {
   return (
     <>
       <div className="product-all-page">
@@ -20,6 +20,6 @@ function Product() {
       </div>
     </>
   );
-}
+});
 
 export default Product;

@@ -1,7 +1,7 @@
 import React from "react";
 import expandMore from "../../../assets/seller/New folder/expand_more.svg";
 
-function DetailProductListAll() {
+const DetailProductListAll = React.memo(() => {
   return (
     <>
       <div className="container-detail-list-all">
@@ -139,6 +139,5 @@ function DetailProductListAll() {
       </div>
     </>
   );
-}
-
+});
 export default DetailProductListAll;

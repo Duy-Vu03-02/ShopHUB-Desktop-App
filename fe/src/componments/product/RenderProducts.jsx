@@ -4,18 +4,17 @@ import { useApolloClient } from "@apollo/client";
 import { getDetailProduct } from "../../graphQL/query";
 import { ProductContext } from "../../context/productContext";
 
-export default function RenderProducts({ data }) {
+const RenderProducts = React.memo(({ data }) => {
   const client = useApolloClient();
   const navigate = useNavigate();
   const { setProductData } = useContext(ProductContext);
-  console.log(data);
-
-  const handleShowProduct = async ({ id }) => {
+  const handleShowProduct = async (id) => {
     try {
       const { data, errors } = await client.query({
         query: getDetailProduct,
         variables: { id },
       });
+      console.log(data);
 
       if (errors) {
         console.error(errors);
@@ -64,4 +63,6 @@ export default function RenderProducts({ data }) {
       ))}
     </ul>
   );
-}
+});
+
+export default RenderProducts;

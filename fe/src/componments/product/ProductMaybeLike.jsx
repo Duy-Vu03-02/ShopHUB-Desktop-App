@@ -9,7 +9,7 @@ import set7 from "../../assets/product/set7.avif";
 import set8 from "../../assets/product/set8.avif";
 import set9 from "../../assets/product/set9.avif";
 import set10 from "../../assets/product/set10.avif";
-function ProductMaybeLike() {
+const ProductMaybeLike = React.memo(() => {
   const data1 = {
     id: set1,
     description: "Đầm cổ vuông thiết kế hình nấm cổ tích",
@@ -328,6 +328,6 @@ function ProductMaybeLike() {
       </div>
     </>
   );
-}
+});
 
 export default ProductMaybeLike;

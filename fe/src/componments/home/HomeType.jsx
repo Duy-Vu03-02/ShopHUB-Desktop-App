@@ -4,7 +4,7 @@ import { useApolloClient } from "@apollo/client";
 import { top8Product } from "../../graphQL/query";
 import { ProductContext } from "../../context/productContext";
 
-export default function HomeType() {
+const HomeType = React.memo(() => {
   const client = useApolloClient();
   const { setListProducts } = useContext(ProductContext);
   const [productFetch, setProductFetch] = useState([]);
@@ -213,4 +213,5 @@ export default function HomeType() {
       </div>
     </div>
   );
-}
+});
+export default HomeType;

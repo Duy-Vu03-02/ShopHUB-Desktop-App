@@ -5,7 +5,7 @@ import close from "../../assets/icon/close.svg";
 import addPhoto from "../../assets/icon/addPhoto.svg";
 import addVideo from "../../assets/icon/addVideo.svg";
 
-function MenuProduct(handleDisplayBoxChoie) {
+const MenuProduct = React.memo((handleDisplayBoxChoie) => {
   const [nameProduct, setNameProduct] = useState("");
   const [majorProduct, setMajorProduct] = useState("");
   const [descriptionProduct, setDescriptionProduct] = useState("");
@@ -157,9 +157,9 @@ function MenuProduct(handleDisplayBoxChoie) {
       </div>
     </>
   );
-}
+});
 
-function InformationDetail() {
+const InformationDetail = React.memo(() => {
   const [brand, setBrand] = useState("");
   const [meterial, setMeterial] = useState("");
   const [color, setColor] = useState("");
@@ -224,9 +224,9 @@ function InformationDetail() {
       </div>
     </>
   );
-}
+});
 
-function InformationSeller() {
+const InformationSeller = React.memo(() => {
   function Input({ handleDelete, index }) {
     const [inputValue, setInputValue] = useState("");
 
@@ -255,6 +255,7 @@ function InformationSeller() {
       </>
     );
   }
+
   function NotClassification() {
     return (
       <>
@@ -300,7 +301,7 @@ function InformationSeller() {
     );
   }
 
-  const boradSize = ["M", "L", "XL", "2XL", "3XL"];
+  const boradSize = ["M", "L", "XL", "XXL", "XXXL"];
   const [statusClassification, setStatusClassification] = useState(false);
   const [checkedColor, setCheckedColor] = useState([]);
   const [checkedSize, setCheckedSize] = useState([]);
@@ -447,9 +448,9 @@ function InformationSeller() {
       </div>
     </>
   );
-}
+});
 
-function Transport() {
+const Transport = React.memo(() => {
   const [unitLength, setUnitLength] = useState("");
   const [unitWidth, setUnitWidth] = useState("");
   const [unitHeight, setUnitHeight] = useState("");
@@ -582,7 +583,7 @@ function Transport() {
       </div>
     </>
   );
-}
+});
 
 // function OtherInformation() {
 //   const RADIOYES = "RADIO YES";

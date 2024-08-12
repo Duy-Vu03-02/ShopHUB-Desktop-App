@@ -10,7 +10,7 @@ import xeship from "../../assets/icon/xeship.svg";
 import inconshopping from "../../assets/icon/iconshopping.svg";
 import committed from "../../assets/icon/committed.png";
 
-function ProductMain() {
+const ProductMain = React.memo(() => {
   const [hoverImg, setHoverImg] = useState(null);
   const [countProduct, setCountProduct] = useState(1);
   const [colorPay, setColorPay] = useState("");
@@ -270,6 +270,6 @@ function ProductMain() {
       </div>
     </>
   );
-}
+});
 
 export default ProductMain;

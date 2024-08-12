@@ -6,7 +6,7 @@ import button_next from "../../assets/home/button_next.png";
 import button_back from "../../assets/home/button_back.png";
 import camera from "../../assets/home/camera.png";
 
-function HomeBanner() {
+const HomeBanner = React.memo(() => {
   const [banner, setBanner] = useState(banner1);
   const [autoSwitch, setAutoSwitch] = useState(true);
   const [dataSearch, setDataSearch] = useState("");
@@ -99,6 +99,5 @@ function HomeBanner() {
       </div>
     </>
   );
-}
-
+});
 export default HomeBanner;

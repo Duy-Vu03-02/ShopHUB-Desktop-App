@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import HomeBanner from "../../componments/home/HomeBanner";
 import HomeContainer from "../../componments/home/HomeContainer";
 import HomeIntroduce from "../../componments/home/HomeIntroduce";
-function Home() {
+const Home = React.memo(() => {
   const navigate = useNavigate();
 
   return (
@@ -17,5 +17,5 @@ function Home() {
       </div>
     </>
   );
-}
+});
 export default Home;
