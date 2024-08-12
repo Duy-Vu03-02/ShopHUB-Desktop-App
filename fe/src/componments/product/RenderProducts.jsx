@@ -14,7 +14,6 @@ const RenderProducts = React.memo(({ data }) => {
         query: getDetailProduct,
         variables: { id },
       });
-      console.log(data);
 
       if (errors) {
         console.error(errors);

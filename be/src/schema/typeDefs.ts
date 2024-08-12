@@ -31,7 +31,7 @@ export const typeDefs = gql`
     description: String
     price: Float
     type: String
-    review: [Review]
+    reviews: [String]
     quantity: [Quantity]
     sold: Int
     totalStar: Float
@@ -69,8 +69,11 @@ export const typeDefs = gql`
   }
 
   type Review {
-    content: String
+    id: ID
+    idProduct: ID
     idUser: ID
+    star: Int
+    content: String
     like: Int
   }
 

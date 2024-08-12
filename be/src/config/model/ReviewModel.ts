@@ -7,12 +7,14 @@ const reviewSchema = new Schema(
       ref: "Product",
       required: true,
     },
-    content: {
-      idUser: { type: Schema.Types.ObjectId, ref: "User", required: true },
-      rating: { type: Number, min: 1, max: 5, required: true },
-      comment: String,
-      img: [String],
+    star: { type: Number, required: true },
+    content: { type: String, trim: true },
+    idUser: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      trim: true,
     },
+    like: { type: Number, default: 0, required: true, trim: true },
   },
   { timestamps: true }
 );

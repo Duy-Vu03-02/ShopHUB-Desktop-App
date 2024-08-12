@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import React, { useContext } from "react";
 import avatar from "../../assets/shop/shopavatar.png";
 import chat from "../../assets/icon/chat.svg";
 import store from "../../assets/icon/store.svg";
@@ -8,8 +8,11 @@ import description2 from "../../assets/product/description2.jfif";
 import description3 from "../../assets/product/description3.jfif";
 import description4 from "../../assets/product/description4.jfif";
 import description5 from "../../assets/product/description5.jfif";
+import { ProductContext } from "../../context/productContext";
 
 const ProductDetail = React.memo(() => {
+  const { productData } = useContext(ProductContext);
+
   const data = {
     name: "Ngu Thư Hân",
     ratting: 15,

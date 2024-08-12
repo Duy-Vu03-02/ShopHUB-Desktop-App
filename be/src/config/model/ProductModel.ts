@@ -23,18 +23,7 @@ const productSchema = new mongoose.Schema(
       },
     ],
     type: { type: String, trim: true },
-    reviews: [
-      {
-        star: { type: Number, required: true },
-        content: { type: String, trim: true },
-        idUser: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-          trim: true,
-        },
-        like: { type: Number, default: 0, required: true, trim: true },
-      },
-    ],
+    reviews: [{ idReview: { type: Schema.Types.ObjectId, ref: "Review" } }],
     totalStar: { type: Number, required: true, default: 5 },
     sold: { type: Number, required: true, default: 0 },
   },

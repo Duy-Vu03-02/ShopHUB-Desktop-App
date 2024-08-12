@@ -17,8 +17,18 @@ export const getDetailProduct = gql`
       name
       description
       price
-      images
+      quantity {
+        images
+        color
+        sizes {
+          size
+          total
+        }
+      }
       type
+      reviews
+      totalStar
+      sold
     }
   }
 `;
