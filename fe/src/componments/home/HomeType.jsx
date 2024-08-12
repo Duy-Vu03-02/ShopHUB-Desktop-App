@@ -1,16 +1,7 @@
 import React, { useEffect, useContext, useState } from "react";
-import set1 from "../../assets/product/set1.avif";
-import set2 from "../../assets/product/set2.avif";
-import set3 from "../../assets/product/set3.avif";
-import set4 from "../../assets/product/set4.avif";
-import set5 from "../../assets/product/set5.avif";
-import set6 from "../../assets/product/set6.avif";
-import set7 from "../../assets/product/set7.avif";
-import set8 from "../../assets/product/set8.avif";
-import RenderProduct from "../product/RenderProduct";
 import RenderProducts from "../product/RenderProducts";
 import { useApolloClient } from "@apollo/client";
-import { getDefaultProduct } from "../../graphQL/query";
+import { top8Product } from "../../graphQL/query";
 import { ProductContext } from "../../context/productContext";
 
 export default function HomeType() {
@@ -22,21 +13,16 @@ export default function HomeType() {
     const fetch = async () => {
       try {
         const { data, errors } = await client.query({
-          query: getDefaultProduct,
-          variables: { id: "66b9d641d335616dc9c49483" },
+          query: top8Product,
         });
 
         if (errors) {
           console.error(errors);
-        } else {
+        } else if (data.top8Product.length > 0) {
           setListProducts((prevState) => {
-            if (prevState?.length < 0) {
-              return data.product;
-            } else {
-              return [...prevState, data.product];
-            }
+            return [...prevState, ...data.top8Product];
           });
-          setProductFetch([data.product]);
+          setProductFetch(data.top8Product);
         }
         return;
       } catch (err) {
@@ -45,57 +31,6 @@ export default function HomeType() {
     };
     fetch();
   }, []);
-  const data1 = {
-    id: set1,
-    description: "Đầm cổ vuông thiết kế hình nấm cổ tích",
-    price: "380.000.000",
-    sold: 2570,
-  };
-  const data2 = {
-    id: set2,
-    description: "Cô gái Mỏi may mắn nhỏ bé có khí chất",
-    price: "570. 000",
-    sold: 583,
-  };
-  const data3 = {
-    id: set3,
-    description: "Mới thời trang phong cách Hepby",
-    price: "560. 000",
-    sold: 879,
-  };
-  const data4 = {
-    id: set4,
-    description: "Váy trắng cổ xanh hải quân cho nữ",
-    price: "280. 000",
-    sold: 217,
-  };
-  const data5 = {
-    id: set5,
-    description: "Disney trang phục Disney trang phục Pháp tình yêu đầu tiên",
-    price: "780. 000",
-    sold: 503,
-  };
-  const data6 = {
-    id: set6,
-    description: "Đầm Pháp nhỏ Puff Puff",
-    price: "980. 000",
-    sold: 808,
-  };
-  const data7 = {
-    id: set7,
-    description: "Đầm nữ mùa hè tay phồng",
-    price: "380. 000",
-    sold: 257,
-  };
-  const data8 = {
-    id: set8,
-    description: "Bộ đồ màu đen kiểu Pháp Hepburn",
-    price: "380. 000",
-    sold: 257,
-  };
-
-  const sets = [data1, data2, data3, data4, data5, data6, data7, data8];
-  const sets3 = [data5, data6, data7];
 
   const option = [
     {
@@ -262,7 +197,7 @@ export default function HomeType() {
                     ))}
                     <hr />
                     <div className="home_like">
-                      <RenderProduct data={sets} />
+                      <RenderProducts data={productFetch} />
                     </div>
                   </ul>
                 </div>
@@ -270,9 +205,11 @@ export default function HomeType() {
             ))}
           </ul>
         </div>
-        <div className="home_default">
-          <RenderProducts data={productFetch} />
-        </div>
+        {productFetch && (
+          <div className="home_default">
+            <RenderProducts data={productFetch} />
+          </div>
+        )}
       </div>
     </div>
   );

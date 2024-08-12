@@ -23,9 +23,9 @@ export const getDetailProduct = gql`
   }
 `;
 
-export const getDefaultProduct = gql`
-  query defaultProduct($id: ID!) {
-    product(id: $id) {
+export const top8Product = gql`
+  query top8Product {
+    top8Product {
       id
       name
       quantity {

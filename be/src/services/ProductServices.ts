@@ -36,6 +36,18 @@ export const getProductById = async (args: any) => {
   }
 };
 
+export const getTopProductByStar = async () => {
+  try {
+    const product = await ProductModel.find().sort({ totalStar: -1 }).limit(8);
+    if (product.length > 0) {
+      return product;
+    }
+    return;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 export const updateProduct = async (args: any) => {
   try {
     const {

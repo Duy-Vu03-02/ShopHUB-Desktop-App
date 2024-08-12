@@ -1,5 +1,9 @@
 import { registerShop } from "../services/ShopperServices";
-import { createProduct, getProductById } from "../services/ProductServices";
+import {
+  createProduct,
+  getProductById,
+  getTopProductByStar,
+} from "../services/ProductServices";
 import { login, register } from "../services/UserServices";
 
 export const resolvers = {
@@ -12,6 +16,9 @@ export const resolvers = {
       return await getProductById(args);
     },
 
+    top8Product: async () => {
+      return await getTopProductByStar();
+    },
     // notification: async (parent: any, args: any) => {
     //   return;
     // },

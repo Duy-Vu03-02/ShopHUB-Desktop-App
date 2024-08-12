@@ -95,7 +95,10 @@ export const typeDefs = gql`
   type Query {
     user(phone: String, email: String, password: String!): User
     shopper(phone: String, email: String, password: String!): Shopper
+
     product(id: ID!): Product
+    top8Product: [Product]
+
     notification(id: ID!): Notification
     conversation(id: ID!): Conversation
     message(id: ID!): Message

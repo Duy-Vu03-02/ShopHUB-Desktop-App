@@ -55,7 +55,9 @@ export default function RenderProducts({ data }) {
               margin: "10px 0 0 0",
             }}
           >
-            <p className="item-product-price">${set.price}</p>
+            <p className="item-product-price">
+              ₫{new Intl.NumberFormat("vi-VN").format(set.price)}
+            </p>
             <p className="item-product-slod">Đã bán {set.sold}</p>
           </div>
         </li>
