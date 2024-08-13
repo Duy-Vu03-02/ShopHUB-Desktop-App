@@ -102,12 +102,6 @@ const ProductDetail = React.memo(() => {
           </div>
         </div>
       </div>
-      {productData && (
-        <>
-          <ProductReview idProduct={productData.id} />
-          <ProductMaybeLike idProduct={productData.id} />
-        </>
-      )}
     </>
   );
 });

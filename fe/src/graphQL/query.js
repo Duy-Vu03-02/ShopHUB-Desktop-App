@@ -61,16 +61,16 @@ export const top8Product = gql`
 `;
 
 export const productByShop = gql`
-  query productByShop($id: ID) {
+  query productByShop($id: ID!) {
     productByShop(id: $id) {
       id
       name
-      # quantity {
-      #   images
-      # }
-      # price
-      # totalStar
-      # sold
+      quantity {
+        images
+      }
+      price
+      totalStar
+      sold
     }
   }
 `;

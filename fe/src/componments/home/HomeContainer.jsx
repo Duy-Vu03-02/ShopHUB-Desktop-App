@@ -24,7 +24,7 @@ const HomeContainer = React.memo(() => {
         <div className="home_like_product">
           {listProducts && (
             <div className="home_default  home_products">
-              <RenderProducts data={listProducts} />
+              <RenderProducts products={listProducts} />
             </div>
           )}
         </div>

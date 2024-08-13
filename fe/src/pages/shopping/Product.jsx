@@ -16,8 +16,8 @@ const Product = React.memo(() => {
         <ProductMain />
         <ProductShopper />
         <ProductDetail />
-        {/* <ProductReview />
-        <ProductMaybeLike /> */}
+        <ProductReview />
+        <ProductMaybeLike />
         <HomeIntroduce />
       </div>
     </>

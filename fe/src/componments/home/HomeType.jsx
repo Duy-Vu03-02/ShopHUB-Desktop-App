@@ -52,7 +52,7 @@ const HomeType = React.memo(() => {
                     ))}
                     <hr />
                     <div className="home_like">
-                      <RenderProducts data={productFetch} />
+                      <RenderProducts products={productFetch} />
                     </div>
                   </ul>
                 </div>
@@ -62,7 +62,7 @@ const HomeType = React.memo(() => {
         </div>
         {productFetch && (
           <div className="home_default">
-            <RenderProducts data={productFetch} />
+            <RenderProducts products={productFetch} />
           </div>
         )}
       </div>
