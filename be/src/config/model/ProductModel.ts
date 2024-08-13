@@ -6,6 +6,14 @@ const productSchema = new mongoose.Schema(
     name: { type: String, required: true, trim: true },
     description: { type: String, trim: true },
     price: { type: Number, required: true, trim: true },
+    freeShip: {
+      type: { type: Boolean },
+      minPrice: { type: Number, min: 0 },
+    },
+    discountCode: {
+      type: { type: Boolean },
+      value: { type: Number, min: 0 },
+    },
     quantity: [
       {
         images: [{ type: String, trim: true }],
@@ -22,6 +30,7 @@ const productSchema = new mongoose.Schema(
         ],
       },
     ],
+    totalProducts: { type: Number },
     type: { type: String, trim: true },
     reviews: [{ idReview: { type: Schema.Types.ObjectId, ref: "Review" } }],
     totalStar: { type: Number, required: true, default: 5 },

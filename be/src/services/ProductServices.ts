@@ -3,15 +3,35 @@ import { ProductModel } from "../config/model/ProductModel";
 
 export const createProduct = async (args: any) => {
   try {
-    const { idShop, name, description, price, type, quantity } = args;
+    const {
+      idShop,
+      name,
+      description,
+      price,
+      type,
+      quantity,
+      freeShip,
+      discountCode,
+    } = args;
     if (idShop && name && description && price && quantity && type) {
+      const totalProducts = (
+        await Promise.all(
+          quantity.map(async (item: any) =>
+            item.sizes.reduce((total: number, e: any) => total + e.total, 0)
+          )
+        )
+      ).reduce((acc, curr) => acc + curr, 0);
+
       const newProduct = await ProductModel.create({
+        totalProducts,
         idShop,
         name,
         description,
         price,
         type,
         quantity,
+        ...(freeShip ? freeShip : undefined),
+        ...(discountCode ? discountCode : undefined),
       });
       await newProduct.save();
       return newProduct;
@@ -25,7 +45,6 @@ export const createProduct = async (args: any) => {
 export const getProductById = async (args: any) => {
   try {
     const { id } = args;
-    console.log(id);
     if (id) {
       const product = await ProductModel.findById(id);
       if (product) return product;
@@ -41,6 +60,22 @@ export const getTopProductByStar = async () => {
     const product = await ProductModel.find().sort({ totalStar: -1 }).limit(8);
     if (product.length > 0) {
       return product;
+    }
+    return;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const getProductByShop = async (args: any) => {
+  try {
+    const { id } = args;
+    console.log(id);
+    if (id) {
+      const products = await ProductModel.find({ idShop: id });
+      if (products.length > 0) {
+        return products;
+      }
     }
     return;
   } catch (err) {

@@ -19,7 +19,7 @@ function App() {
         <Route path="/product" element={<Product />} />
         <Route path="/test" element={<Test />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/shoper" element={<SellerChanel />} />
+        <Route path="/shopper" element={<SellerChanel />} />
       </Routes>
     </BrowserRouter>
   );

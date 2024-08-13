@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useApolloClient } from "@apollo/client";
+import { productByShop } from "../../graphQL/query";
 import set1 from "../../assets/product/set1.avif";
 import set2 from "../../assets/product/set2.avif";
 import set3 from "../../assets/product/set3.avif";
@@ -9,7 +11,30 @@ import set7 from "../../assets/product/set7.avif";
 import set8 from "../../assets/product/set8.avif";
 import set9 from "../../assets/product/set9.avif";
 import set10 from "../../assets/product/set10.avif";
-const ProductMaybeLike = React.memo(() => {
+
+const ProductMaybeLike = React.memo(({ idProduct }) => {
+  const client = useApolloClient();
+  const [listProduct, setListProduct] = useState([]);
+
+  useEffect(() => {
+    const fetch = async () => {
+      const { data, errors } = await client.query({
+        query: productByShop,
+        variables: {
+          id: idProduct,
+        },
+      });
+      console.log(data);
+      if (errors) {
+        console.error(errors);
+      } else if (data?.productByShop?.length > 0) {
+        setListProduct[data.productByShop];
+        return;
+      }
+      return;
+    };
+    fetch();
+  }, []);
   const data1 = {
     id: set1,
     description: "Đầm cổ vuông thiết kế hình nấm cổ tích",

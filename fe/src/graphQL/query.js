@@ -13,8 +13,10 @@ export const login = gql`
 export const getDetailProduct = gql`
   query detailProduct($id: ID!) {
     product(id: $id) {
+      id
       idShop
       name
+      totalProducts
       description
       price
       quantity {
@@ -29,6 +31,16 @@ export const getDetailProduct = gql`
       reviews
       totalStar
       sold
+      shopper {
+        avatar
+        shopName
+        totalReviews
+        totalProduct
+        percenReponse
+        lastActive
+        timeJoin
+        follow
+      }
     }
   }
 `;
@@ -44,6 +56,21 @@ export const top8Product = gql`
       price
       totalStar
       sold
+    }
+  }
+`;
+
+export const productByShop = gql`
+  query productByShop($id: ID) {
+    productByShop(id: $id) {
+      id
+      name
+      # quantity {
+      #   images
+      # }
+      # price
+      # totalStar
+      # sold
     }
   }
 `;

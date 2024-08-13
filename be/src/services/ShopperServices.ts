@@ -1,5 +1,19 @@
 import { ShopperModel } from "../config/model/ShopperModel";
 
+export const getShopById = async (id: any) => {
+  try {
+    if (id) {
+      const shop = await ShopperModel.findById(id);
+      if (shop) {
+        return shop;
+      }
+    }
+    return;
+  } catch (err) {
+    console.error;
+  }
+};
+
 export const loginShop = async (args: any) => {
   try {
     const { phone, email, password } = args;
@@ -49,7 +63,7 @@ export const registerShop = async (args: any) => {
   }
 };
 
-export const delUser = async (args: any) => {
+export const delShop = async (args: any) => {
   try {
     const { idUser } = args;
     if (idUser) {
@@ -65,7 +79,7 @@ export const delUser = async (args: any) => {
   }
 };
 
-export const updateInforUser = async (args: any) => {
+export const updateInforShop = async (args: any) => {
   try {
     const { idUser, username, address, avatar } = args;
     if (idUser && (username || address || avatar)) {

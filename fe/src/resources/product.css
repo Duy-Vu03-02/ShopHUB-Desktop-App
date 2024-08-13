@@ -213,8 +213,11 @@
   display: flex;
   margin-left: 55px;
 }
+.product_size_option > div {
+  margin-left: 63px !important;
+}
 .product_size_option ul {
-  margin-left: 63px;
+  margin: 0 !important;
 }
 .product_content_color button,
 .product_content_size button {

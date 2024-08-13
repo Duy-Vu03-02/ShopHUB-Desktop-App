@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
-import avatar from "../../assets/shop/shopavatar.png";
-import chat from "../../assets/icon/chat.svg";
-import store from "../../assets/icon/store.svg";
+import ProductMaybeLike from "./ProductMaybeLike";
+import ProductReview from "./ProductReview";
 import description from "../../assets/product/description.jfif";
 import description1 from "../../assets/product/description1.jfif";
 import description2 from "../../assets/product/description2.jfif";
@@ -56,65 +55,6 @@ const ProductDetail = React.memo(() => {
   };
   return (
     <>
-      <div className="product_shop_owner">
-        <div className="product_shop_overview flex">
-          <div className="product_shop_avatar">
-            <img src={avatar} alt="" />
-          </div>
-          <div className="product_shop_title">
-            <div className="product_shop_name">
-              <p>{data.name}</p>
-            </div>
-            <div
-              className="product_last_time_onl capitalize"
-              style={{ fontSize: 14 }}
-            >
-              <p>online {data.lastTimeOnl} giờ trước</p>
-            </div>
-            <div className="product_shop_contact flex">
-              <div className="product_shop_mess flex">
-                <img src={chat} alt="" />
-                <p className="capitalize" style={{ color: "#ee4d2d" }}>
-                  chat ngay
-                </p>
-              </div>
-              <div className="product_shop_see flex">
-                <img src={store} alt="" />
-                <p className="capitalize">xem shop</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="table capitalize">
-          <table className="table_td">
-            <tbody>
-              <tr>
-                <td className="product_table_f">
-                  đánh giá <span>{data.ratting}</span>
-                </td>
-                <td className="product_table_s">
-                  tỉ lệ phản hồi<span>{data.persenRespone}</span>
-                </td>
-                <td className="product_table_t">
-                  tham gia<span>{data.timeJoin}</span>
-                </td>
-              </tr>
-              <tr>
-                <td className="product_table_f">
-                  sản phẩm
-                  <span>{data.productCount}</span>
-                </td>
-                <td className="product_table_s">
-                  thời gian phản hồi<span>{data.lastTimeOnl}</span>
-                </td>
-                <td className="product_table_t">
-                  người theo dõi<span>{data.follow}</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
       <div className="product_detail">
         <div style={{ height: 10 }}></div>
         <div className="product_detail_title uppercase">
@@ -162,6 +102,12 @@ const ProductDetail = React.memo(() => {
           </div>
         </div>
       </div>
+      {productData && (
+        <>
+          <ProductReview idProduct={productData.id} />
+          <ProductMaybeLike idProduct={productData.id} />
+        </>
+      )}
     </>
   );
 });

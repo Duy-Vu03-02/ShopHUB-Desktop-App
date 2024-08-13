@@ -44,7 +44,11 @@ const ProductMain = React.memo(() => {
   }
   function handleChangeCountProduct(e) {
     var value = e.target.value;
-    if (Math.floor(value) == value) {
+    if (0 + value > productData.totalProducts && Math.floor(value) == value) {
+      setCountProduct(productData.totalProducts);
+    } else if (0 + value <= 0 && Math.floor(value) == value) {
+      setCountProduct(1);
+    } else {
       setCountProduct(value);
     }
   }
@@ -77,7 +81,7 @@ const ProductMain = React.memo(() => {
                 {productData.quantity.map((item, index) => (
                   <li key={index} style={{ display: "flex" }}>
                     {item.images.map((e, z) => (
-                      <div style={{ display: "flex" }}>
+                      <div style={{ display: "flex" }} key={z}>
                         <img
                           src={e}
                           alt="Hinh anh"
@@ -254,6 +258,8 @@ const ProductMain = React.memo(() => {
                     type="text"
                     value={countProduct}
                     onChange={handleChangeCountProduct}
+                    min={1}
+                    max={productData.totalProducts}
                   />
                 </div>
                 <div className="product_count_up">
@@ -262,7 +268,7 @@ const ProductMain = React.memo(() => {
               </div>
               <div className="product_count_inventory">
                 <p style={{ textTransform: "none" }}>
-                  {data1.inventory} sản phẩm có sẵn
+                  {productData.totalProducts} sản phẩm có sẵn
                 </p>
               </div>
             </div>

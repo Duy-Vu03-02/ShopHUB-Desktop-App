@@ -6,6 +6,7 @@ import ProductMaybeLike from "../../componments/product/ProductMaybeLike";
 import ProdcutBanner from "../../componments/product/ProductBanner";
 import HomeIntroduce from "../../componments/home/HomeIntroduce";
 import "../../resources/product.css";
+import ProductShopper from "../../componments/product/ProductShopper";
 
 const Product = React.memo(() => {
   return (
@@ -13,9 +14,10 @@ const Product = React.memo(() => {
       <div className="product-all-page">
         <ProdcutBanner />
         <ProductMain />
+        <ProductShopper />
         <ProductDetail />
-        <ProductReview />
-        <ProductMaybeLike />
+        {/* <ProductReview />
+        <ProductMaybeLike /> */}
         <HomeIntroduce />
       </div>
     </>
