@@ -107,8 +107,8 @@
   font-size: 18px;
   color: #ff5300;
 }
-.product_rating_star img {
-  margin: -2px;
+.product_rating_star {
+  /* margin: -2px; */
   padding: 0;
 }
 .product_rating_star {

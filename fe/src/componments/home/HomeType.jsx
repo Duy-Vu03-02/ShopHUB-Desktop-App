@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import RenderProducts from "../product/RenderProducts";
+import RenderProducts from "../product/utils/RenderProducts";
 import { useApolloClient } from "@apollo/client";
 import { top8Product } from "../../graphQL/query";
 import { ProductContext } from "../../context/productContext";

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import BoxChoie from "./menuProductList/BoxChoie";
-import close from "../../assets/icon/close.svg";
-import addPhoto from "../../assets/icon/addPhoto.svg";
-import addVideo from "../../assets/icon/addVideo.svg";
+import BoxChoie from "./BoxChoie";
+import close from "../../../assets/icon/close.svg";
+import addPhoto from "../../../assets/icon/addPhoto.svg";
+import addVideo from "../../../assets/icon/addVideo.svg";
 
 const MenuProduct = React.memo((handleDisplayBoxChoie) => {
   const [nameProduct, setNameProduct] = useState("");

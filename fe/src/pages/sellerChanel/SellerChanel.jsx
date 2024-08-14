@@ -10,9 +10,9 @@ import shopping from "../../assets/icon/shopping.svg";
 import order from "../../assets/icon/order.svg";
 import box from "../../assets/icon/box.svg";
 import store from "../../assets/icon/store1.svg";
-import arrowLess from "../../assets/icon/arrowLess.svg";
-import arrowMore from "../../assets/icon/arrowMore.svg";
-import MenuProduct from "../../componments/sellerChanel/MenuProduct";
+// import arrowLess from "../../assets/icon/arrowLess.svg";
+// import arrowMore from "../../assets/icon/arrowMore.svg";
+// import MenuProduct from "../../componments/sellerChanel/MenuProduct";
 import DetailProduct from "../../componments/sellerChanel/DetailProduct";
 
 const SellerChanel = React.memo(() => {

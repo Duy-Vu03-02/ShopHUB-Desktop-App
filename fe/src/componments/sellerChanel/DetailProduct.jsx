@@ -1,6 +1,5 @@
 import React from "react";
-import DetailProductListAll from "./detailProductList/DetailProductListAll";
-import MenuProduct from "./MenuProduct";
+import MenuProduct from "./managerOrder/MenuProduct";
 
 const DetailProduct = React.memo(() => {
   return (

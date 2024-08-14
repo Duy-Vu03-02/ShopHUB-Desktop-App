@@ -2,8 +2,8 @@ import React, { useContext } from "react";
 import "../../resources/home.css";
 import flyers from "../../assets/product/flyers.avif";
 import HomeType from "./HomeType";
-import RenderProducts from "../product/RenderProducts";
 import { ProductContext } from "../../context/productContext";
+import RenderProducts from "../product/utils/RenderProducts";
 
 const HomeContainer = React.memo(() => {
   const { listProducts } = useContext(ProductContext);

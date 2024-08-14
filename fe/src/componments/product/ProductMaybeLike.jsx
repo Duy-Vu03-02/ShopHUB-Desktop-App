@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useApolloClient } from "@apollo/client";
 import { productByShop } from "../../graphQL/query";
 import { ProductContext } from "../../context/productContext";
-import RenderProducts from "./RenderProducts";
+import RenderProducts from "./utils/RenderProducts";
 
 const ProductMaybeLike = React.memo(() => {
   const { productData } = useContext(ProductContext);
@@ -21,7 +21,6 @@ const ProductMaybeLike = React.memo(() => {
       if (errors) {
         console.error(errors);
       } else if (data?.productByShop?.length > 0) {
-        console.log(data.productByShop);
         setListProduct(data.productByShop);
       }
     };
@@ -39,7 +38,6 @@ const ProductMaybeLike = React.memo(() => {
           {listProduct && (
             <div className="home_like_product">
               <div className="home_default  home_products">
-                {console.log(listProduct)}
                 <RenderProducts products={listProduct} />
               </div>
             </div>
@@ -56,7 +54,6 @@ const ProductMaybeLike = React.memo(() => {
           {listProduct && (
             <div className="home_like_product">
               <div className="home_default  home_products">
-                {console.log(listProduct)}
                 <RenderProducts products={listProduct} />
               </div>
             </div>

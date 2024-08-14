@@ -1,6 +1,7 @@
 import React from "react";
 import star from "../../assets/icon/rating_star.svg";
 import avatarcmt from "../../assets/shop/avatarcmt.png";
+import Star from "./utils/Star";
 
 const ProductReview = React.memo(() => {
   const data = {
@@ -48,11 +49,7 @@ const ProductReview = React.memo(() => {
               <span>trên 5</span>
             </div>
             <div className="product_star_detail">
-              <img src={star} alt="" />
-              <img src={star} alt="" />
-              <img src={star} alt="" />
-              <img src={star} alt="" />
-              <img src={star} alt="" />
+              <Star value={4.9} />
             </div>
           </div>
           <div className="product_overview_content">

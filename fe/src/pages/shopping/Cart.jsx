@@ -136,7 +136,6 @@ const Cart = React.memo(() => {
             <div className="cart_product_informative flex">
               <p>đơn giá</p>
               <p>Số lượng</p>
-              <p>Số tiền</p>
               <p>Thao tác</p>
             </div>
           </div>

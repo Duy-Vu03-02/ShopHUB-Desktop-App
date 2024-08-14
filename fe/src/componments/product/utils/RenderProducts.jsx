@@ -1,11 +1,10 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useApolloClient } from "@apollo/client";
-import { getDetailProduct } from "../../graphQL/query";
-import { ProductContext } from "../../context/productContext";
+import { getDetailProduct } from "../../../graphQL/query";
+import { ProductContext } from "../../../context/productContext";
 
 const RenderProducts = React.memo(({ products }) => {
-  console.log(products);
   const client = useApolloClient();
   const navigate = useNavigate();
   const { setProductData } = useContext(ProductContext);

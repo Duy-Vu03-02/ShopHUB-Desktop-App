@@ -4,6 +4,7 @@ import set2 from "../../assets/product/set3.avif";
 import set3 from "../../assets/product/set4.avif";
 import set4 from "../../assets/product/set5.avif";
 import star from "../../assets/icon/rating_star.svg";
+import Star from "./utils/Star";
 import re from "../../assets/icon/re.svg";
 import freeShip from "../../assets/icon/freeShip.png";
 import xeship from "../../assets/icon/xeship.svg";
@@ -104,11 +105,7 @@ const ProductMain = React.memo(() => {
                 <div className="product_rating">
                   <span>{productData.totalStar}</span>
                   <div className="product_rating_star">
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
-                    <img src={star} alt="" />
+                    <Star value={productData.totalStar} />
                   </div>
                   <hr />
                 </div>
