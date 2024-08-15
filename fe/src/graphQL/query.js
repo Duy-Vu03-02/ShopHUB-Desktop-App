@@ -6,6 +6,7 @@ export const login = gql`
       id
       username
       order
+      avatar
     }
   }
 `;

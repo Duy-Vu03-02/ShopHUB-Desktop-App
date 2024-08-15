@@ -40,14 +40,7 @@ function App() {
             </>
           }
         />
-        <Route
-          path="/shopper"
-          element={
-            <>
-              <Header /> <SellerChanel />
-            </>
-          }
-        />
+        <Route path="/shopper" element={<SellerChanel />} />
       </Routes>
     </BrowserRouter>
   );

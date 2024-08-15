@@ -1,7 +1,7 @@
 import React from "react";
 import expandMore from "../../../assets/seller/New folder/expand_more.svg";
 
-const DetailProductListAll = React.memo(() => {
+const AllProduct = React.memo(() => {
   return (
     <>
       <div className="container-detail-list-all">
@@ -140,4 +140,4 @@ const DetailProductListAll = React.memo(() => {
     </>
   );
 });
-export default DetailProductListAll;
+export default AllProduct;

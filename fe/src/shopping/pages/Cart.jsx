@@ -44,6 +44,17 @@ const Cart = React.memo(() => {
       voucher: "thêm mã giảm giá của shop",
       numOrder: 1,
     },
+    {
+      id: "4",
+      nameShop: "ulzzang store",
+      img: img,
+      nameProduct: "đầm cổ vuông abc thiết kế hình nấm cổ tích",
+      classification: "Áo trắng, Free size",
+      price: "400000",
+      count: "1",
+      voucher: "thêm mã giảm giá của shop",
+      numOrder: 1,
+    },
   ]);
 
   useEffect(() => {
@@ -126,17 +137,24 @@ const Cart = React.memo(() => {
               />
               <p>select all ({listsProduct?.length} items) </p>
             </div>
-            <div className="flex">
-              <div style={{ cursor: "pointer" }} className="flex">
-                <CiTrash style={{ fontSize: "18px", color: "#7d7f87" }} />
-                <p style={{ margin: "0px" }}>delete</p>
-              </div>
+            <div
+              style={{ cursor: "pointer", position: "relative" }}
+              className="flex"
+            >
+              <CiTrash style={{ fontSize: "18px", color: "#7d7f87" }} />
+              <p style={{ margin: "0px" }}>delete</p>
               {checkAll && (
                 <div
-                  style={{ cursor: "pointer" }}
+                  style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    right: "100px",
+                  }}
                   className="btn-payment-order"
                 >
-                  <button style={{ margin: 0 }}>Thanh toán</button>
+                  <button style={{ minWidth: "150px" }}>
+                    Thanh toán({listSelect.length})
+                  </button>
                 </div>
               )}
             </div>

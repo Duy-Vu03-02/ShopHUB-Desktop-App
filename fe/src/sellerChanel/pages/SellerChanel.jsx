@@ -10,10 +10,9 @@ import shopping from "../../assets/icon/shopping.svg";
 import order from "../../assets/icon/order.svg";
 import box from "../../assets/icon/box.svg";
 import store from "../../assets/icon/store1.svg";
-// import arrowLess from "../../assets/icon/arrowLess.svg";
-// import arrowMore from "../../assets/icon/arrowMore.svg";
-// import MenuProduct from "../../componments/sellerChanel/MenuProduct";
-import DetailProduct from "../components/DetailProduct";
+
+import AllProduct from "../components/managerProduct/AllProduct";
+import AddProduct from "../components/managerProduct/AddProduct";
 
 const SellerChanel = React.memo(() => {
   const data = {
@@ -22,22 +21,52 @@ const SellerChanel = React.memo(() => {
   const [compoment, setCompoment] = useState([]);
   const [display, setDisplay] = useState([]);
   const [sateArrow, setSateArrow] = useState([]);
+  const [listMenu, setListMenu] = useState([]);
 
-  function handleDisplay(e) {
-    const classAll = e.target.className.split("-");
-    const classDisplay = `list-${classAll[1]}`;
-    const element = document.querySelector(`.${classDisplay}`);
-    const haveIndex = display.indexOf(classDisplay);
-    if (haveIndex >= 0) {
-      element.style.display = "none";
-      setDisplay((prevState) => {
-        return prevState.filter((x) => x !== classDisplay);
+  function handleDisplay(content) {
+    if (listMenu.includes(content)) {
+      setListMenu((prev) => {
+        return prev.filter((item) => item != content);
       });
     } else {
-      element.style.display = "block";
-      setDisplay((prevState) => [...prevState, classDisplay]);
+      setListMenu((prev) => [...prev, content]);
     }
   }
+
+  console.log(listMenu);
+
+  const bars = [
+    {
+      icon: box,
+      content: "vận chuyển",
+      item: ["quản lý vận chuyển", "giao hàng loạt", "cài đặt vận chuyển"],
+    },
+    {
+      icon: order,
+      content: "quản lý đơn hàng",
+      item: ["tất cả", "đơn hủy", "trả hàng/hoàn tiền"],
+    },
+    {
+      icon: shopping,
+      content: "quản lý sản phẩm",
+      item: ["tất cả sản phẩm", "thêm sản phẩm", "cài đặt sản phẩm"],
+    },
+    {
+      icon: payment,
+      content: "tài chính",
+      item: ["doanh thu", "tài khoản ngân hàng", "thiết lập thanh toán"],
+    },
+    {
+      icon: store,
+      content: "quản lý shop",
+      item: ["đánh giá shop", "hồ sơ shop", "kho hình ảnh/video"],
+    },
+    {
+      icon: setting,
+      content: "thiết lập shop",
+      item: ["địa chỉ", "thiết lập shop", "tài khoản"],
+    },
+  ];
 
   return (
     <>
@@ -69,94 +98,31 @@ const SellerChanel = React.memo(() => {
 
         <div className="content flex">
           <div className="sidebar-menu capitalize">
-            <div className="menu-transport">
-              <div className="menu-title flex">
-                <img src={box} alt="" />
-                <h5 className="state-transport" onClick={handleDisplay}>
-                  vận chuyển
-                </h5>
-                <img className="arrow" src={sateArrow} alt="" />
-              </div>
-              <ul className="hidden list-transport ">
-                <li>quản lý vận chuyển</li>
-                <li>giao hàng loạt</li>
-                <li>cài đặt vận chuyển</li>
-              </ul>
-            </div>
-            <div className="menu-oder">
-              <div className="menu-title flex">
-                <img src={order} alt="" />
-                <h5 className="state-oder" onClick={handleDisplay}>
-                  quản lý đơn hàng
-                </h5>
-                <img className="arrow" src={sateArrow} alt="" />
-              </div>
-              <ul className="hidden list-oder ">
-                <li>tất cả</li>
-                <li>đơn hủy</li>
-                <li>trả hàng/hoàn tiền</li>
-              </ul>
-            </div>
-            <div className="menu-product">
-              <div className="menu-title flex">
-                <img src={shopping} alt="" />
-                <h5 className="state-product" onClick={handleDisplay}>
-                  quản lý sản phẩm
-                </h5>
-                <img className="arrow" src={sateArrow} alt="" />
-              </div>
-              <ul className="hidden list-product ">
-                <li>tất cả sản phẩm</li>
-                <li>thêm sản phẩm</li>
-                <li>cài đặt sản phẩm</li>
-              </ul>
-            </div>
-            <div className="menu-finance">
-              <div className="menu-title flex">
-                <img src={payment} alt="" />
-                <h5 className="state-finance" onClick={handleDisplay}>
-                  tài chính
-                </h5>
-                <img className="arrow" src={sateArrow} alt="" />
-              </div>
-              <ul className="hidden list-finance ">
-                <li>doanh thu</li>
-                <li>tài khoản ngân hàng</li>
-                <li>thiết lập thanh toán</li>
-              </ul>
-            </div>
-            <div className="menu-management">
-              <div className="menu-title flex">
-                <img src={store} alt="" />
-                <h5 className="state-management" onClick={handleDisplay}>
-                  quản lý shop
-                </h5>
-                <img className="arrow" src={sateArrow} alt="" />
-              </div>
-              <ul className="hidden list-management ">
-                <li>đánh giá shop</li>
-                <li>hồ sơ shop</li>
-                <li>kho hình ảnh/video</li>
-              </ul>
-            </div>
-            <div className="menu-config">
-              <div className="menu-title flex" style={{ marginBottom: 15 }}>
-                <img src={setting} alt="" />
-                <h5 className="state-config" onClick={handleDisplay}>
-                  thiết lập shop
-                </h5>
-                <img className="arrow" src={sateArrow} alt="" />
-              </div>
-              <ul className="hidden list-config ">
-                <li>địa chỉ</li>
-                <li>thiết lập shop</li>
-                <li>tài kh</li>
-              </ul>
-            </div>
+            {bars.map((item, index) => (
+              <li key={index}>
+                <div className="menu-transport">
+                  <div className="menu-title flex">
+                    <img src={item.icon} alt="" />
+                    <h5
+                      className="state-transport"
+                      onClick={() => handleDisplay(item.content)}
+                    >
+                      {item.content}
+                    </h5>
+                    <img className="arrow" src={sateArrow} alt="" />
+                  </div>
+                  {listMenu.includes(item.content) && (
+                    <ul className="hidden list-transport ">
+                      {item.item.map((e, z) => (
+                        <li key={z}>{e}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </li>
+            ))}
           </div>
-          <div className="display-compoment">
-            <DetailProduct />
-          </div>
+          <div className="display-compoment">{/* <MainSeller /> */}</div>
         </div>
       </div>
     </>

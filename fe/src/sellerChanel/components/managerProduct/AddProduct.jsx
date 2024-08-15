@@ -5,7 +5,7 @@ import close from "../../../assets/icon/close.svg";
 import addPhoto from "../../../assets/icon/addPhoto.svg";
 import addVideo from "../../../assets/icon/addVideo.svg";
 
-const MenuProduct = React.memo((handleDisplayBoxChoie) => {
+const AddProduct = React.memo((handleDisplayBoxChoie) => {
   const [nameProduct, setNameProduct] = useState("");
   const [majorProduct, setMajorProduct] = useState("");
   const [descriptionProduct, setDescriptionProduct] = useState("");
@@ -670,4 +670,4 @@ const Transport = React.memo(() => {
 //   );
 // }
 
-export default MenuProduct;
+export default AddProduct;

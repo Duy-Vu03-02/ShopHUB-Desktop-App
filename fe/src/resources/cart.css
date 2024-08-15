@@ -92,9 +92,13 @@
   margin: 15px 0;
 }
 .btn-payment-order button {
+  cursor: pointer;
   padding: 9px 13px;
   font-size: 15px;
   background-color: #f76834;
   color: white;
   font-weight: bold;
+}
+.btn-payment-order button:hover {
+  opacity: 0.9;
 }

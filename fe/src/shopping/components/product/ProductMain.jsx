@@ -39,9 +39,11 @@ const ProductMain = React.memo(() => {
     productData.quantity[0].images[0]
   );
 
-  function handleChangeImg(value) {
+  function handleChangeImg(value, color) {
     setImgmonitor(value);
     setHoverImg(value);
+    setColorPay(color);
+    setButtonActived(color);
   }
   function handleChangeCountProduct(e) {
     var value = e.target.value;
@@ -59,11 +61,15 @@ const ProductMain = React.memo(() => {
     }
   }
   function handleCountUpProduct() {
-    setCountProduct((prevState) => prevState + 1);
+    if (countProduct < productData.totalProducts) {
+      setCountProduct((prevState) => prevState + 1);
+    }
   }
-  function handleChangeColor(color) {
+  function handleChangeColor(color, img) {
     setColorPay(color);
     setButtonActived(color);
+    setImgmonitor(img);
+    setHoverImg(img);
   }
   function handleChangeSize(size) {
     setSizePay(size);
@@ -86,7 +92,7 @@ const ProductMain = React.memo(() => {
                         <img
                           src={e}
                           alt="Hinh anh"
-                          onClick={() => handleChangeImg(e)}
+                          onClick={() => handleChangeImg(e, item.color)}
                           className={e === hoverImg ? "product_img_hover" : ""}
                         />
                       </div>
@@ -212,7 +218,11 @@ const ProductMain = React.memo(() => {
                             : "",
                       }}
                     >
-                      <button onClick={() => handleChangeColor(item.color)}>
+                      <button
+                        onClick={() =>
+                          handleChangeColor(item.color, item.images[0])
+                        }
+                      >
                         {item.color}
                       </button>
                     </li>
@@ -230,7 +240,13 @@ const ProductMain = React.memo(() => {
                     <div key={index}>
                       <ul>
                         {item.sizes.map((e, z) => (
-                          <li key={z}>
+                          <li
+                            key={z}
+                            style={{
+                              border:
+                                e.size === sizePay ? "1px solid #ff5300" : "",
+                            }}
+                          >
                             <button onClick={() => handleChangeSize(e.size)}>
                               {e.size}
                             </button>
