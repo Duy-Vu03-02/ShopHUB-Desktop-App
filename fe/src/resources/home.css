@@ -132,11 +132,12 @@ span h3 {
   padding: 10px 0;
   margin-top: 20px;
 }
-.home_name_type h3 {
+.home_name_type h5 {
   margin: 0 10px 10px 10px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   background-color: #ffeee8;
   border-radius: 20px;
+  font-size: 18px;
 }
 .home_content {
   display: flex;

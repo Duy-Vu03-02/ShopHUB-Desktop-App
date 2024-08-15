@@ -19,7 +19,7 @@ const HomeContainer = React.memo(() => {
       </div>
       <div className="home_maybe_like">
         <div className="home_name_type">
-          <h3>Có thể bạn cũng thích</h3>
+          <h5>Có thể bạn cũng thích</h5>
         </div>
         <div className="home_like_product">
           {listProducts && (

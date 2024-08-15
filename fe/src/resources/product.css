@@ -239,6 +239,7 @@
 
 .product_count_option {
   display: flex;
+  align-items: center;
   margin-left: 60px;
 }
 .product_count_inventory {

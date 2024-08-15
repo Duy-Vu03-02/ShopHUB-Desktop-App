@@ -1,11 +1,13 @@
 .cart-all-page {
-  background-color: #e8e1e3;
+  background-color: #f4f4f4;
 }
 .cart_shop_title {
-  padding: 20px 0px 20px 50px;
-  background-color: white;
+  padding: 10px 0px 10px 50px;
   line-height: 50px;
-  color: #fe4300;
+  /* background-color: white; */
+  /* color: #fe4300; */
+  background-color: #f76834;
+  color: white;
   min-width: 1150px;
   font-size: 22px;
   border-top: 0.1px solid #d3b8b0;
@@ -18,138 +20,81 @@
   margin: 10px 20px;
   width: 1px;
   height: 30px;
-  border: 1px solid #fe4300;
+  border: 1px solid white;
 }
 .cart_product_detail {
   width: 1150px;
+  min-height: calc(100vh - 63px - 70px);
   margin: auto;
   margin-top: 20px;
 }
 
-.cart_product_all {
-  background-color: #fbf9f9;
-  border-radius: 5px;
-  border: 0.5px solid #d3b8b0;
+.select-all-item {
+  justify-content: space-between;
+  background-color: white;
+  padding: 15px;
+  align-items: center;
+  align-content: center;
 }
-.cart_product_checkall {
-  flex: 3;
-  line-height: 30px;
-  padding: 7px;
-}
-.cart_product_all input,
-.cart_product_name_shop input {
-  margin: 0 15px 0px 30px;
-}
-
-.cart_product_informative {
-  line-height: 45px;
-  flex: 4;
-  justify-content: space-around;
-}
-.cart_product_list {
-  background-color: whitesmoke;
-  margin-top: 10px;
-}
-.cart_product_name_shop {
-  padding: 5px;
-  line-height: 35px;
-  border-radius: 5px;
-  font-size: 15px;
-}
-.cart_product_name_shop img {
-  width: 20px;
+.select-all-item p {
   margin: 0 10px;
-  cursor: pointer;
+  text-transform: uppercase;
+  color: #7d7f87;
+  font-size: 12px;
 }
-.cart_product_list hr {
-  height: 1px;
+.select-all-item > div {
+  align-items: center;
 }
-.cart_product_title {
-  margin: 20px 0 20px 30px;
-  padding: 5px;
-  width: 300px;
-}
-.cart_product_title p {
-  margin: auto;
-}
-.cart_product_title img {
-  max-width: 70px;
-  margin: 0 10px 0 15px;
+.select-all-item input {
+  background-color: #fe4300;
+  outline: none;
+  border: none;
 }
 
-.cart_detail_content {
-  justify-content: space-around;
-  width: 820px;
+.products-order li {
+  background-color: white;
+  margin: 10px 0;
+  /* padding: 10px; */
 }
 
-.cart_product_money button {
-  border: none;
-  margin: 10px;
+.products-order li .store-order {
+  align-items: center;
+  padding: 10px 0 15px 0;
+  border-bottom: 1px solid rgb(238, 239, 244);
 }
-.cart_product_classification {
-  margin: auto;
-  line-height: 20px;
-  margin-left: 10px;
-  width: 150px;
-  flex: 1;
+.products-order li .detail-order {
+  padding: 15px 0;
 }
-.cart_count_product,
-.cart_sum_price,
-.cart_product_money {
-  flex: 1;
+.detail-order img {
+  width: 80px;
+  height: 80px;
 }
-.cart_product_price {
-  margin: auto;
-  font-size: 14px;
-  text-align: center;
-  justify-content: center;
+.detail-order input {
+  margin: 15px;
 }
-.cart_by_cost {
-  color: rgb(0 0 0 / 54%);
-  text-decoration: line-through;
-  margin-right: 10px;
+
+.detail-order .title-order,
+.detail-order .style-order {
+  margin: 0 15px;
+  font-size: 18px;
 }
-.cart_count_option {
-  line-height: 120px;
-  justify-content: center;
+.detail-order .style-order {
+  margin-top: 10px;
+  font-size: 13px;
+  color: #aeb0b7;
+  text-transform: uppercase;
 }
-.cart_count_option input {
-  width: 50px;
-  height: 25px;
-  border: none;
-  border-top: 1px solid rgba(119, 116, 116, 0.54);
-  border-bottom: 1px solid rgb(119, 116, 116, 0.54);
-  background-color: whitesmoke;
-  text-align: center;
+.calculator-price p:first-child {
+  color: #fe4300;
+  font-size: 18px;
 }
-.cart_count_option button {
-  width: 25px;
-  border: 1px solid rgb(119, 116, 116, 0.54);
-  background-color: whitesmoke;
-  height: 25px;
+.trash-order {
+  margin: 15px 0;
 }
-.cart_product_money {
-  margin: auto;
-}
-.cart_product_money button {
-  text-align: center;
-  display: block;
-  margin: auto;
-  line-height: 20px;
-  cursor: pointer;
-}
-.cart_sum_price {
-  margin: auto;
-}
-.cart_sum_price p {
-  text-align: center;
-}
-.cart_product_voucher {
-  /* margin: 30px; */
-  line-height: 50px;
-  cursor: pointer;
-}
-.cart_product_voucher img {
-  width: 20px;
-  margin: 0px 10px 0px 30px;
+.btn-payment-order button {
+  padding: 9px 13px;
+  font-size: 15px;
+  background-color: #f76834;
+  color: white;
+  font-weight: bold;
 }

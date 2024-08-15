@@ -36,7 +36,7 @@ const HomeType = React.memo(() => {
   return (
     <div className="home_type">
       <div className="home_name_type">
-        <h3>Phân loại</h3>
+        <h5>Phân loại</h5>
       </div>
       <div className="home_content">
         <div className="home_optinal_type" style={{ minWidth: "230px" }}>

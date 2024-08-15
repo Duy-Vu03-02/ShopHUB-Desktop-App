@@ -33,35 +33,6 @@ const HomeBanner = React.memo(() => {
   return (
     <>
       <div className="home_banner_container">
-        <div className="home_site_nav">
-          <div className="home_nav_left">
-            <div className="home_nav_left_detail">
-              <button>Tải ứng dụng</button>
-            </div>
-            <div className="home_nav_left_detail">
-              <button>Trở thành người bán Shop Hub</button>
-            </div>
-            <div className="home_nav_left_detail">
-              <button>Đăng ký miễn phí</button>
-            </div>
-          </div>
-          <div className="home_nav_right">
-            <div className="home_nav_right_detail">
-              <button>
-                <Link to="/" onClick={handleLogout}>
-                  Đăng xuất
-                </Link>
-              </button>
-            </div>
-
-            <div className="home_nav_right_detail">
-              <button>Thông báo</button>
-            </div>
-            <div className="home_nav_right_detail">
-              <button>Hỗ trợ</button>
-            </div>
-          </div>
-        </div>
         <div className="home_banner_nav">
           <div className="home_button_next_banner" onClick={handleBanner}>
             <img src={button_next} alt="button next" />
