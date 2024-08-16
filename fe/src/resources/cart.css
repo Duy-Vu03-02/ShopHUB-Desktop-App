@@ -91,7 +91,8 @@
 .trash-order {
   margin: 15px 0;
 }
-.btn-payment-order button {
+.btn-payment-order button,
+.btn-add-product button {
   cursor: pointer;
   padding: 9px 13px;
   font-size: 15px;

@@ -11,6 +11,7 @@ import order from "../../assets/icon/order.svg";
 import box from "../../assets/icon/box.svg";
 import store from "../../assets/icon/store1.svg";
 
+import MainSeller from "../components/MainSeller";
 import AllProduct from "../components/managerProduct/AllProduct";
 import AddProduct from "../components/managerProduct/AddProduct";
 
@@ -122,7 +123,9 @@ const SellerChanel = React.memo(() => {
               </li>
             ))}
           </div>
-          <div className="display-compoment">{/* <MainSeller /> */}</div>
+          <div className="display-compoment">
+            <MainSeller />
+          </div>
         </div>
       </div>
     </>

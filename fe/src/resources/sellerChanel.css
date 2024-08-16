@@ -218,6 +218,7 @@
   width: 200px;
   height: 40px;
   margin: auto;
+  padding-left: 10px;
   border: 1px solid #999999;
   border-radius: 5px;
 }
@@ -451,7 +452,7 @@
 .img-size-outline {
   margin: auto;
   line-height: 50px;
-  height: 90px;
+  /* height: 90px; */
 }
 .img-size-outline div {
   margin: auto;
