@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import avatar from "../../assets/shop/shopavatar.png";
 import "../../resources/sellerChanel.css";
+import "./seller.css";
 import notification from "../../assets/icon/notification.svg";
 import apps from "../../assets/icon/apps.svg";
 import message from "../../assets/icon/chat.svg";
@@ -33,8 +34,6 @@ const SellerChanel = React.memo(() => {
       setListMenu((prev) => [...prev, content]);
     }
   }
-
-  console.log(listMenu);
 
   const bars = [
     {
