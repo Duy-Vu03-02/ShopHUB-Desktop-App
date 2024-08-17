@@ -82,7 +82,6 @@ const BasicInfor = React.memo(() => {
   };
 
   const handleDelVideo = () => {
-    console.log("cd");
     setFileVideo(false);
   };
 
@@ -227,7 +226,8 @@ const BasicInfor = React.memo(() => {
                         />
                       </div>
                       <video
-                        src={fileVideo}
+                        // src={fileVideo}
+                        src="https://www.youtube.com/watch?v=R3q_hLgPXvU"
                         style={{ width: "65px", height: "65px" }}
                       />
                     </div>

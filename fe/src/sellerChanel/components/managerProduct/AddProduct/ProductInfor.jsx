@@ -20,8 +20,6 @@ const ProductInfor = React.memo(() => {
     });
   };
 
-  console.log(data);
-
   return (
     <>
       <div className="add-infor-detail">

@@ -7,3 +7,18 @@
   border: 1px dashed #5c5a5a;
   border-radius: 3px;
 }
+.list-img-type::-webkit-scrollbar {
+  width: 0px !important;
+  height: 4px !important;
+  scrollbar-width: thin;
+  background-color: #e8e3e3;
+  border: none;
+  /* display: none; */
+}
+.list-img-type::-webkit-scrollbar-thumb {
+  background-color: #c1bcbc;
+  border-radius: 60px !important;
+}
+.list-img-type::-webkit-scrollbar-track {
+  background: #ffffff; /* Màu nền của thanh cuộn */
+}
