@@ -2,191 +2,53 @@ import React, { useState, useCallback, useEffect } from "react";
 import close from "../../../../assets/icon/close.svg";
 import addPhoto from "../../../../assets/icon/addPhoto.svg";
 import { v4 as uuidv4 } from "uuid";
-
-const Input = React.memo(({ handleDelete, inputData, handleChangeData }) => {
-  const handleImageChange = useCallback((e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        return handleChangeData({
-          img: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
-    }
-  }, []);
-
-  const handleChange = useCallback((e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    handleChangeData({
-      [name]: value,
-    });
-  }, []);
-
-  return (
-    <>
-      <div className="input-list-outline" style={{ marginBottom: 0 }}>
-        <div className="flex img-input-list" style={{ marginBottom: 0 }}>
-          <input
-            type="text"
-            value={inputData.color}
-            onChange={handleChange}
-            name="color"
-          />
-          <img src={close} onClick={handleDelete} />
-        </div>
-        <div
-          className="add-img-video classification-img"
-          style={{ margin: "10px auto" }}
-        >
-          {!inputData?.img ? (
-            <div style={{ position: "relative" }}>
-              <input
-                type="file"
-                id="imageInput"
-                accept="image/*"
-                style={{
-                  opacity: 0,
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  height: "65px",
-                  width: "65px",
-                  cursor: "pointer",
-                }}
-                name="img"
-                onChange={handleImageChange}
-              />
-              <img src={addPhoto} alt="" />
-              <div>Thêm hình ảnh</div>
-            </div>
-          ) : (
-            <div style={{ position: "relative" }}>
-              <div
-                className="img-input-list"
-                style={{ marginBottom: 0, border: "none" }}
-                onClick={handleDelete}
-              >
-                <img
-                  src={close}
-                  alt="Remove"
-                  style={{
-                    top: "3px",
-                    right: "3px",
-                    width: "15px",
-                    height: "15px",
-                    borderRadius: "50%",
-                    border: "none",
-                  }}
-                />
-              </div>
-              <img
-                src={inputData.img}
-                alt="Uploaded"
-                style={{
-                  width: "65px",
-                  height: "65px",
-                }}
-              />
-            </div>
-          )}
-        </div>
-      </div>
-    </>
-  );
-});
-
-const NotClassification = React.memo(({ handleClassification }) => {
-  const [price, setPrice] = useState("");
-  const [sold, setSold] = useState("");
-
-  function handleChangePrice(e) {
-    setPrice(e.target.value);
-  }
-  function handleChangeSold(e) {
-    setSold(e.target.value);
-  }
-
-  return (
-    <>
-      <div className="not-classification">
-        <div className="classification-infor input-detail-infor flex">
-          <p>Phân loại hàng</p>
-          <button
-            className="flex display-button-classfication"
-            style={{
-              paddingLeft: 5,
-              marginLeft: 50,
-              width: 160,
-              height: 40,
-            }}
-            onClick={handleClassification}
-          >
-            <span style={{ fontSize: 35, fontWeight: 200, margin: "auto" }}>
-              +
-            </span>
-            <p
-              style={{
-                margin: "auto",
-                marginLeft: 0,
-                textAlign: "left",
-                width: 150,
-                lineHeight: 0,
-              }}
-            >
-              &nbsp;Thêm nhóm phân loại
-            </p>
-          </button>
-        </div>
-        <div className="price-infor input-detail-infor flex">
-          <p>*Giá</p>
-          <input type="text" value={price} onChange={handleChangePrice} />
-        </div>
-        <div className="sold-infor input-detail-infor flex">
-          <p>*Kho hàng</p>
-          <input type="text" value={sold} onChange={handleChangeSold} />
-        </div>
-      </div>
-    </>
-  );
-});
+import Input from "./sellerInfor/Input";
+import NotClassification from "./sellerInfor/NotClassification";
 
 const SelerInfor = React.memo(() => {
-  const boradSize = ["M", "L", "XL", "XXL", "XXXL"];
   const [statusClassification, setStatusClassification] = useState(false);
-  const [colorData, setColorData] = useState([]);
-  const [checkedSize, setCheckedSize] = useState([]);
-
-  const handleSendColorData = (data) => {
-    setColorData((prev) => {
-      const check = prev.some((item) => item.id === data.id);
-      if (check) {
-        return prev.filter((item) => item !== data);
-      } else {
-        return [...prev, data];
-      }
-    });
+  const init = {
+    key: uuidv4(),
+    data: {
+      img: "",
+      color: "",
+      sizes: [
+        {
+          size: "M",
+          total: 0,
+          checked: false,
+        },
+        {
+          size: "L",
+          total: 0,
+          checked: false,
+        },
+        {
+          size: "XL",
+          total: 0,
+          checked: false,
+        },
+        {
+          size: "XXL",
+          total: 0,
+          checked: false,
+        },
+        {
+          size: "XXXL",
+          total: 0,
+          checked: false,
+        },
+      ],
+    },
   };
 
-  const [mainData, setMainData] = useState([
-    {
-      key: uuidv4(),
-      data: {
-        img: "",
-        color: "",
-      },
-    },
-  ]);
-  const [modData, setModData] = useState();
-
-  // console.log(mainData);
+  const [mainData, setMainData] = useState([init]);
+  const [currentMain, setCurrentMain] = useState([{ key: "", data: "" }]);
+  const [modData, setModData] = useState({ price: "", sold: "" });
 
   const handleAddInputList = () => {
     setMainData((prev) => {
-      return [...prev, { key: uuidv4(), img: "", color: "" }];
+      return [...prev, init];
     });
   };
 
@@ -199,8 +61,6 @@ const SelerInfor = React.memo(() => {
   };
 
   const handleChangeMain = (value, id) => {
-    console.log(value);
-    console.log(id);
     setMainData((prev) => {
       return prev.map((item) => {
         if (item.key == id) {
@@ -217,22 +77,114 @@ const SelerInfor = React.memo(() => {
     });
   };
 
-  function handleChangeCheckBoxSize(e) {
-    const value = e.target.value;
-    setCheckedSize((prevState) => {
-      if (checkedSize.includes(value)) {
-        return prevState.filter((x) => x !== value);
-      } else {
-        return [...prevState, value];
-      }
+  const handleChangeCheckBoxSize = (resize) => {
+    // update current
+    setCurrentMain((prev) => {
+      const updatedSizes = prev.data.map((sizeObj) => {
+        if (sizeObj.size === resize) {
+          return {
+            ...sizeObj,
+            checked: !sizeObj.checked,
+          };
+        }
+        return sizeObj;
+      });
+
+      return {
+        ...prev,
+        data: updatedSizes,
+      };
     });
-  }
+
+    // update main
+    setMainData((prev) => {
+      return prev.map((item) => {
+        if (item.key === currentMain.key) {
+          const updatedSizes = item.data.sizes.map((sizeObj) => {
+            if (sizeObj.size === resize) {
+              return {
+                ...sizeObj,
+                checked: !sizeObj.checked, // Đảo ngược trạng thái checked
+              };
+            }
+            return sizeObj;
+          });
+
+          return {
+            ...item,
+            data: {
+              ...item.data,
+              sizes: updatedSizes,
+            },
+          };
+        }
+        return item;
+      });
+    });
+  };
+
+  const handleChangeTotal = (e, size) => {
+    const newTotal = e.target.value;
+
+    if (newTotal < 0) return;
+
+    // Cập nhật currentMain
+    setCurrentMain((prev) => {
+      const updatedSizes = prev.data.map((sizeObj) => {
+        if (sizeObj.size === size) {
+          return {
+            ...sizeObj,
+            total: newTotal, // Cập nhật total với giá trị mới
+          };
+        }
+        return sizeObj;
+      });
+
+      return {
+        ...prev,
+        data: updatedSizes,
+      };
+    });
+
+    // Cập nhật mainData
+    setMainData((prev) => {
+      return prev.map((item) => {
+        if (item.key === currentMain.key) {
+          const updatedSizes = item.data.sizes.map((sizeObj) => {
+            if (sizeObj.size === size) {
+              return {
+                ...sizeObj,
+                total: newTotal, // Cập nhật total với giá trị mới
+              };
+            }
+            return sizeObj;
+          });
+
+          return {
+            ...item,
+            data: {
+              ...item.data,
+              sizes: updatedSizes,
+            },
+          };
+        }
+        return item;
+      });
+    });
+  };
 
   function handleClassification() {
-    statusClassification
-      ? setStatusClassification(false)
-      : setStatusClassification(true);
+    setStatusClassification(!statusClassification);
   }
+
+  const handleChangeNotClass = (e) => {
+    const { name, value } = e.target;
+    setModData((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
+
+  console.log(modData);
 
   return (
     <>
@@ -272,14 +224,35 @@ const SelerInfor = React.memo(() => {
                     }}
                   >
                     {mainData.map((item) => (
-                      <Input
+                      <div
                         key={item.key}
-                        handleDelete={() => handleDeleteInputList(item.key)}
-                        handleChangeData={(value) =>
-                          handleChangeMain(value, item.key)
-                        }
-                        inputData={item.data}
-                      />
+                        style={{
+                          border:
+                            item.key == currentMain.key
+                              ? "1px solid rgb(238, 77, 45)"
+                              : undefined,
+                        }}
+                        onClick={() => {
+                          const product = mainData.map((e) => {
+                            if (item.key === e.key) return item;
+                          });
+                          if (product) {
+                            setCurrentMain({
+                              key: item.key,
+                              data: item.data.sizes,
+                            });
+                          }
+                        }}
+                      >
+                        <Input
+                          key={item.key}
+                          handleDelete={() => handleDeleteInputList(item.key)}
+                          handleChangeData={(value) =>
+                            handleChangeMain(value, item.key)
+                          }
+                          inputData={item.data}
+                        />
+                      </div>
                     ))}
                   </div>
                   <div className="add-classification-color">
@@ -299,35 +272,52 @@ const SelerInfor = React.memo(() => {
                 </div>
 
                 <table style={{ display: "flex", justifyContent: "center" }}>
-                  {boradSize.map((board, index) => (
-                    <tbody key={index}>
-                      <tr>
-                        <td>
-                          <input
-                            type="checkbox"
-                            value={board}
-                            onChange={handleChangeCheckBoxSize}
-                          />
-                          <span>&nbsp;{board}</span>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="img-size-outline">
-                          <div
-                            className="flex img-input-list "
-                            style={{ border: "none" }}
-                          >
-                            <input type="text" placeholder="Số lượng" />
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  ))}
+                  {currentMain?.key &&
+                    currentMain?.data?.map((item, index) => (
+                      <tbody key={index}>
+                        <tr>
+                          <td>
+                            <input
+                              type="checkbox"
+                              onChange={() =>
+                                handleChangeCheckBoxSize(item.size)
+                              }
+                              checked={item.checked}
+                            />
+                            <span>&nbsp;{item.size}</span>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="img-size-outline">
+                            <div
+                              className="flex img-input-list "
+                              style={{ border: "none", textAlign: "center" }}
+                            >
+                              <input
+                                type="text"
+                                placeholder="Số lượng"
+                                value={item.checked ? item.total : "Không chọn"}
+                                style={{ textAlign: "center" }}
+                                min={0}
+                                onChange={(e) =>
+                                  handleChangeTotal(e, item.size)
+                                }
+                                disabled={!item.checked}
+                              />
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    ))}
                 </table>
               </div>
             </>
           ) : (
-            <NotClassification handleClassification={handleClassification} />
+            <NotClassification
+              handleClassification={handleClassification}
+              notClassification={modData}
+              handleChangeNotClass={handleChangeNotClass}
+            />
           )}
         </div>
       </div>
