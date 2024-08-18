@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Compo } from "react";
-import "../../../resources/sellerChanel.css";
-import close from "../../../assets/icon/close.svg";
+import "../../../../resources/sellerChanel.css";
+import close from "../../../../assets/icon/close.svg";
 
 const BoxChoie = React.memo(({ handleChangeDataSentCompoment }) => {
   const [dislayConponment, setDisplayComponment] = useState("");

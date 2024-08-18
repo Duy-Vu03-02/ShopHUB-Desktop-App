@@ -7,15 +7,18 @@ import { ApolloProvider } from "@apollo/client";
 import { client } from "./graphQL/apolloClient";
 import { UserProvider } from "./context/userContext";
 import { ProductProvider } from "./context/productContext";
+import { SellerProvider } from "./sellerChanel/context/sellerContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
       <UserProvider>
-        <ProductProvider>
-          <App />
-        </ProductProvider>
+        <SellerProvider>
+          <ProductProvider>
+            <App />
+          </ProductProvider>
+        </SellerProvider>
       </UserProvider>
     </ApolloProvider>
   </React.StrictMode>

@@ -1,5 +1,5 @@
 import React from "react";
-import AddProduct from "./managerProduct/AddProduct";
+import AddProduct from "./managerProduct/AddProduct/AddProduct";
 
 const MainSeller = React.memo(() => {
   return (

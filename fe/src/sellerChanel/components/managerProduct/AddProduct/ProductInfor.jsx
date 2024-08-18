@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { SellerContext } from "../../../context/sellerContext";
 
 const ProductInfor = React.memo(() => {
-  const [data, setData] = useState({
-    country: "",
-    brand: "",
-    material: "",
-    style: "",
-    sendFrom: "",
-    design: "",
-    data: "",
-  });
+  const { setAddProduct, addProduct } = useContext(SellerContext);
 
   const handleChange = (e) => {
-    setData((prev) => {
+    setAddProduct((prev) => {
+      const { name, value } = e.target;
       return {
         ...prev,
-        [e.target.name]: e.target.value,
+        description: {
+          ...prev.description,
+          [name]: value,
+        },
       };
     });
   };
@@ -31,7 +28,7 @@ const ProductInfor = React.memo(() => {
               <p>*Xuất xứ</p>
               <input
                 type="text"
-                value={data.country}
+                value={addProduct?.description?.country}
                 onChange={handleChange}
                 name="country"
               />
@@ -40,7 +37,7 @@ const ProductInfor = React.memo(() => {
               <p>Thương hiệu</p>
               <input
                 type="text"
-                value={data.brand}
+                value={addProduct?.description?.brand}
                 onChange={handleChange}
                 name="brand"
               />
@@ -49,7 +46,7 @@ const ProductInfor = React.memo(() => {
               <p>Chất liệu</p>
               <input
                 type="text"
-                value={data.material}
+                value={addProduct?.description?.material}
                 onChange={handleChange}
                 name="material"
               />
@@ -60,7 +57,7 @@ const ProductInfor = React.memo(() => {
               <p>Phong cách</p>
               <input
                 type="text"
-                value={data.style}
+                value={addProduct?.description?.style}
                 onChange={handleChange}
                 name="style"
               />
@@ -69,7 +66,7 @@ const ProductInfor = React.memo(() => {
               <p>Gửi từ</p>
               <input
                 type="text"
-                value={data.sendFrom}
+                value={addProduct?.description?.sendFrom}
                 onChange={handleChange}
                 name="sendFrom"
               />
@@ -78,7 +75,7 @@ const ProductInfor = React.memo(() => {
               <p>Kiểu dáng</p>
               <input
                 type="text"
-                value={data.design}
+                value={addProduct?.description?.design}
                 onChange={handleChange}
                 name="design"
               />

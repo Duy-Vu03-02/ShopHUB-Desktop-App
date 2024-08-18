@@ -4,9 +4,9 @@ export const productTypeDefs = `
     id: ID
     idShop: ID
     name: String
-    description: String
+    description: Description
     price: Float
-    type: String
+    type: [String]
     reviews: [String]
     quantity: [Quantity]
     sold: Int
@@ -15,6 +15,17 @@ export const productTypeDefs = `
     discountCode: DiscountCode
     totalProducts: Int
     shopper: Shopper
+  }
+
+  type Description {
+      content:  String 
+      imgs: [ String ]
+      country:  String 
+      brand:  String 
+      material:  String 
+      style:  String 
+      sendFrom:  String 
+      design:  String 
   }
 
   type Quantity {
@@ -38,6 +49,17 @@ export const productTypeDefs = `
 
 // Input
 export const proudctInput = `
+  input DescriptionInput{
+      content:  String 
+      imgs: [ String ]
+      country:  String 
+      brand:  String 
+      material:  String 
+      style:  String 
+      sendFrom:  String 
+      design:  String 
+  }
+
   input QuantityInput {
     color: String!
     sizes: [SizeInput]!
@@ -68,9 +90,9 @@ export const productMutaion = `
     createProduct(
       idShop: ID!
       name: String!
-      description: String!
+      description: DescriptionInput!
       price: Float!
-      type: String
+      type: [String]
       quantity: [QuantityInput]!
       discountCode: DiscountCodeInput
       freeShip: FreeShipInput

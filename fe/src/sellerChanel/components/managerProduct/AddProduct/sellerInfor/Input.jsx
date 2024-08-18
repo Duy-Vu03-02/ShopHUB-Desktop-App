@@ -66,7 +66,7 @@ const Input = React.memo(({ handleDelete, inputData, handleChangeData }) => {
               <div
                 className="img-input-list"
                 style={{ marginBottom: 0, border: "none" }}
-                onClick={handleDelete}
+                onClick={() => handleChangeData({ img: null })}
               >
                 <img
                   src={close}

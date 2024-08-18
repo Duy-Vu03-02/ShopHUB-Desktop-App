@@ -1,10 +1,65 @@
-import React, { useEffect, useState } from "react";
-import BasicInfor from "./AddProduct/BasicInfor";
-import ProductInfor from "./AddProduct/ProductInfor";
-import Transport from "./AddProduct/Transport";
-import SelerInfor from "./AddProduct/SelerInfor";
+import React, { useContext } from "react";
+import { useApolloClient } from "@apollo/client";
+import { SellerContext } from "../../../context/sellerContext";
+import { createProduct } from "../../../../graphQL/sellerChanel/query";
+import BasicInfor from "./BasicInfor";
+import ProductInfor from "./ProductInfor";
+import Transport from "./Transport";
+import SelerInfor from "./SelerInfor";
 
 const AddProduct = React.memo(() => {
+  const { addProduct } = useContext(SellerContext);
+  const client = useApolloClient();
+
+  const handleCreateProduct = async () => {
+    const dataSend = {
+      idShop: "66b9c0163157a3dc7c66516e",
+      type: addProduct.type,
+      name: addProduct.name,
+      description: {
+        ...addProduct.description,
+        imgs: addProduct.description.imgs.map((item) => item.img),
+      },
+      price: addProduct.price,
+      quantity: addProduct.quantity
+        .map((item) => {
+          const result = {
+            color: item.data.color,
+            imgs: [item.data.img],
+            sizes: item.data.sizes
+              .map((e) => {
+                if (e.checked) {
+                  return { size: e.size, total: e.total };
+                }
+                return;
+              })
+              .filter((item) => item !== undefined),
+          };
+          return result;
+        })
+        .filter((item) => item.color.trim() !== ""),
+    };
+    console.log(dataSend);
+
+    try {
+      const { data, errors } = await client.mutate({
+        query: createProduct,
+        variables: { ...dataSend },
+      });
+
+      if (errors) {
+        console.error(errors);
+        return;
+      }
+
+      if (data.createProduct) {
+        console.log(data.createProduct);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <div>
@@ -15,6 +70,7 @@ const AddProduct = React.memo(() => {
 
         <div className="btn-add-product">
           <button
+            onClick={handleCreateProduct}
             style={{
               margin: " auto auto 10px auto",
               padding: "12px 30px",

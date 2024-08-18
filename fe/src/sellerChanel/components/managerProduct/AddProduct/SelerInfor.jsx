@@ -1,11 +1,14 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import close from "../../../../assets/icon/close.svg";
 import addPhoto from "../../../../assets/icon/addPhoto.svg";
 import { v4 as uuidv4 } from "uuid";
 import Input from "./sellerInfor/Input";
 import NotClassification from "./sellerInfor/NotClassification";
+import { SellerContext } from "../../../context/sellerContext";
 
 const SelerInfor = React.memo(() => {
+  const { setAddProduct, addProduct, shopData } = useContext(SellerContext);
+
   const [statusClassification, setStatusClassification] = useState(false);
   const init = {
     key: uuidv4(),
@@ -14,28 +17,33 @@ const SelerInfor = React.memo(() => {
       color: "",
       sizes: [
         {
+          size: "S",
+          total: 1,
+          checked: false,
+        },
+        {
           size: "M",
-          total: 0,
+          total: 1,
           checked: false,
         },
         {
           size: "L",
-          total: 0,
+          total: 1,
           checked: false,
         },
         {
           size: "XL",
-          total: 0,
+          total: 1,
           checked: false,
         },
         {
           size: "XXL",
-          total: 0,
+          total: 1,
           checked: false,
         },
         {
           size: "XXXL",
-          total: 0,
+          total: 1,
           checked: false,
         },
       ],
@@ -44,36 +52,45 @@ const SelerInfor = React.memo(() => {
 
   const [mainData, setMainData] = useState([init]);
   const [currentMain, setCurrentMain] = useState([{ key: "", data: "" }]);
-  const [modData, setModData] = useState({ price: "", sold: "" });
+  const [modData, setModData] = useState({ price: "", totalProduct: "" });
 
   const handleAddInputList = () => {
-    setMainData((prev) => {
-      return [...prev, init];
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        quantity: [...prev.quantity, init],
+      };
     });
   };
 
   const handleDeleteInputList = (valueKey) => {
-    setMainData((prevState) => {
-      return prevState.filter((x) => {
-        return x.key != valueKey;
-      });
+    setAddProduct((prevState) => {
+      return {
+        ...prevState,
+        quantity: prevState.quantity.filter((x) => {
+          return x.key != valueKey;
+        }),
+      };
     });
   };
 
   const handleChangeMain = (value, id) => {
-    setMainData((prev) => {
-      return prev.map((item) => {
-        if (item.key == id) {
-          return {
-            ...item,
-            data: {
-              ...item.data,
-              ...value,
-            },
-          };
-        }
-        return item;
-      });
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        quantity: prev.quantity.map((item) => {
+          if (item.key == id) {
+            return {
+              ...item,
+              data: {
+                ...item.data,
+                ...value,
+              },
+            };
+          }
+          return item;
+        }),
+      };
     });
   };
 
@@ -97,36 +114,39 @@ const SelerInfor = React.memo(() => {
     });
 
     // update main
-    setMainData((prev) => {
-      return prev.map((item) => {
-        if (item.key === currentMain.key) {
-          const updatedSizes = item.data.sizes.map((sizeObj) => {
-            if (sizeObj.size === resize) {
-              return {
-                ...sizeObj,
-                checked: !sizeObj.checked, // Đảo ngược trạng thái checked
-              };
-            }
-            return sizeObj;
-          });
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        quantity: prev.quantity.map((item) => {
+          if (item.key === currentMain.key) {
+            const updatedSizes = item.data.sizes.map((sizeObj) => {
+              if (sizeObj.size === resize) {
+                return {
+                  ...sizeObj,
+                  checked: !sizeObj.checked,
+                };
+              }
+              return sizeObj;
+            });
 
-          return {
-            ...item,
-            data: {
-              ...item.data,
-              sizes: updatedSizes,
-            },
-          };
-        }
-        return item;
-      });
+            return {
+              ...item,
+              data: {
+                ...item.data,
+                sizes: updatedSizes,
+              },
+            };
+          }
+          return item;
+        }),
+      };
     });
   };
 
   const handleChangeTotal = (e, size) => {
     const newTotal = e.target.value;
 
-    if (newTotal < 0) return;
+    if (newTotal < 0 || parseInt(newTotal) < 0) return;
 
     // Cập nhật currentMain
     setCurrentMain((prev) => {
@@ -134,7 +154,12 @@ const SelerInfor = React.memo(() => {
         if (sizeObj.size === size) {
           return {
             ...sizeObj,
-            total: newTotal, // Cập nhật total với giá trị mới
+            total:
+              newTotal.trim() === ""
+                ? ""
+                : parseInt(newTotal) > 99999999
+                ? 99999999
+                : parseInt(newTotal),
           };
         }
         return sizeObj;
@@ -147,29 +172,37 @@ const SelerInfor = React.memo(() => {
     });
 
     // Cập nhật mainData
-    setMainData((prev) => {
-      return prev.map((item) => {
-        if (item.key === currentMain.key) {
-          const updatedSizes = item.data.sizes.map((sizeObj) => {
-            if (sizeObj.size === size) {
-              return {
-                ...sizeObj,
-                total: newTotal, // Cập nhật total với giá trị mới
-              };
-            }
-            return sizeObj;
-          });
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        quantity: prev.quantity.map((item) => {
+          if (item.key === currentMain.key) {
+            const updatedSizes = item.data.sizes.map((sizeObj) => {
+              if (sizeObj.size === size) {
+                return {
+                  ...sizeObj,
+                  total:
+                    newTotal.trim() === ""
+                      ? ""
+                      : parseInt(newTotal) > 99999999
+                      ? 99999999
+                      : parseInt(newTotal),
+                };
+              }
+              return sizeObj;
+            });
 
-          return {
-            ...item,
-            data: {
-              ...item.data,
-              sizes: updatedSizes,
-            },
-          };
-        }
-        return item;
-      });
+            return {
+              ...item,
+              data: {
+                ...item.data,
+                sizes: updatedSizes,
+              },
+            };
+          }
+          return item;
+        }),
+      };
     });
   };
 
@@ -178,13 +211,27 @@ const SelerInfor = React.memo(() => {
   }
 
   const handleChangeNotClass = (e) => {
-    const { name, value } = e.target;
-    setModData((prev) => {
-      return { ...prev, [name]: value };
-    });
+    try {
+      const { name, value } = e.target;
+      if (value < 0 || parseInt(value) < 0) {
+        return;
+      }
+      setAddProduct((prev) => {
+        return {
+          ...prev,
+          [name]:
+            value.trim() === ""
+              ? ""
+              : parseInt(value) > 99999999
+              ? 99999999
+              : parseInt(value),
+        };
+      });
+    } catch (err) {
+      console.error(err);
+      return;
+    }
   };
-
-  console.log(modData);
 
   return (
     <>
@@ -223,7 +270,7 @@ const SelerInfor = React.memo(() => {
                       overflowY: "hidden",
                     }}
                   >
-                    {mainData.map((item) => (
+                    {addProduct.quantity.map((item) => (
                       <div
                         key={item.key}
                         style={{
@@ -233,7 +280,7 @@ const SelerInfor = React.memo(() => {
                               : undefined,
                         }}
                         onClick={() => {
-                          const product = mainData.map((e) => {
+                          const product = addProduct.quantity.map((e) => {
                             if (item.key === e.key) return item;
                           });
                           if (product) {
@@ -315,7 +362,10 @@ const SelerInfor = React.memo(() => {
           ) : (
             <NotClassification
               handleClassification={handleClassification}
-              notClassification={modData}
+              notClassification={{
+                price: addProduct.price,
+                totalProduct: addProduct.totalProduct,
+              }}
               handleChangeNotClass={handleChangeNotClass}
             />
           )}

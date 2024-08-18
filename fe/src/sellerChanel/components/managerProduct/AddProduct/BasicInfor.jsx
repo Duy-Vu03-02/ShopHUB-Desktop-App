@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import BoxChoie from "../BoxChoie";
+import BoxChoie from "./BoxChoie";
 import addPhoto from "../../../../assets/icon/addPhoto.svg";
 import addVideo from "../../../../assets/icon/addVideo.svg";
 import close from "../../../../assets/icon/close.svg";
 import { v4 as uuidv4 } from "uuid";
+import { SellerContext } from "../../../context/sellerContext";
 
 const BasicInfor = React.memo(() => {
+  const { setAddProduct, addProduct } = useContext(SellerContext);
   const [displayBoxChoie, setDisplayBoxChoie] = useState(false);
   const [stateAddImg, setStateAddImg] = useState(true);
 
-  const [filesImg, setFilesImg] = useState([]);
-  const [fileVideo, setFileVideo] = useState(false);
-  const [nameProduct, setNameProduct] = useState("");
-  const [ngangHang, setNganhHang] = useState([]);
-  const [descriptionProduct, setDescriptionProduct] = useState("");
-
-  function handleChangeDataSentCompoment(data) {
-    setNganhHang(data);
-  }
+  const handleChangeDataSentCompoment = (data) => {
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        type: data,
+      };
+    });
+  };
 
   const handleDisplayBoxChoie = () => {
     const fullScreen = document.querySelector(".full-screen");
@@ -31,11 +32,24 @@ const BasicInfor = React.memo(() => {
   };
 
   const handleChangeNameProduct = (e) => {
-    setNameProduct(e.target.value);
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        name: e.target.value,
+      };
+    });
   };
 
   const handleChangeDescriptionProduct = (e) => {
-    setDescriptionProduct(e.target.value);
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        description: {
+          ...prev.description,
+          content: e.target.value,
+        },
+      };
+    });
   };
 
   const handleImageChange = async (e) => {
@@ -43,7 +57,15 @@ const BasicInfor = React.memo(() => {
 
     if (files.length > 6) {
       setStateAddImg(false);
-      setFilesImg([]);
+      setAddProduct((prev) => {
+        return {
+          ...prev,
+          description: {
+            ...prev.description,
+            imgs: [],
+          },
+        };
+      });
       return;
     }
 
@@ -62,7 +84,15 @@ const BasicInfor = React.memo(() => {
 
       const imgUrls = await Promise.all(fileArray.map(readFileAsDataURL));
 
-      setFilesImg(imgUrls);
+      setAddProduct((prev) => {
+        return {
+          ...prev,
+          description: {
+            ...prev.description,
+            imgs: imgUrls,
+          },
+        };
+      });
       setStateAddImg(true);
     } catch (err) {
       console.error(err);
@@ -73,217 +103,240 @@ const BasicInfor = React.memo(() => {
   const handleVideoChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setFileVideo(URL.createObjectURL(file));
+      setAddProduct((prev) => {
+        return {
+          ...prev,
+          video: URL.createObjectURL(file),
+        };
+      });
     }
   };
 
   const handleDelImgAdd = (id) => {
-    setFilesImg((prev) => prev.filter((element) => element.id !== id));
+    setAddProduct((prev) => prev.filter((element) => element.id !== id));
   };
 
   const handleDelVideo = () => {
-    setFileVideo(false);
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        description: {
+          ...prev.description,
+          video: false,
+        },
+      };
+    });
   };
 
   return (
     <>
-      <div className="full-screen" style={{ zIndex: 10000 }}>
-        <div className="position-box-choie">
-          {displayBoxChoie && (
-            <BoxChoie
-              handleChangeDataSentCompoment={handleChangeDataSentCompoment}
-            />
-          )}
-        </div>
-      </div>
-      <div className="content-li">
-        <div className="add-new-product">
-          <div className="title-content">
-            <h4>Thông tin cơ bản</h4>
+      {addPhoto && (
+        <>
+          <div className="full-screen" style={{ zIndex: 10000 }}>
+            <div className="position-box-choie">
+              {displayBoxChoie && (
+                <BoxChoie
+                  handleChangeDataSentCompoment={handleChangeDataSentCompoment}
+                />
+              )}
+            </div>
           </div>
-          <div className="list-add-product">
-            <div className="add-new-img">
-              <p>*Thêm hình ảnh sản phẩm</p>
-              <div style={{ display: "inline-flex" }}>
-                {filesImg.length < 6 && (
-                  <div
-                    className="add-new-img add-img-video"
-                    style={{ position: "relative", marginRight: "10px" }}
-                  >
-                    <input
-                      type="file"
-                      id="imageInput"
-                      accept="image/*"
-                      style={{
-                        opacity: 0,
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        height: "65px",
-                        width: "65px",
-                        cursor: "pointer",
-                      }}
-                      onChange={handleImageChange}
-                      multiple
-                    />
-                    <img src={addPhoto} alt="Add" />
-                    <div>Thêm hình ảnh({filesImg.length}/6)</div>
-                    {!stateAddImg && (
-                      <div className="flex" style={{ width: "200px" }}>
-                        Chỉ được thêm tối đa 6 ảnh
+          <div className="content-li">
+            <div className="add-new-product">
+              <div className="title-content">
+                <h4>Thông tin cơ bản</h4>
+              </div>
+              <div className="list-add-product">
+                <div className="add-new-img">
+                  <p>*Thêm hình ảnh sản phẩm</p>
+                  <div style={{ display: "inline-flex" }}>
+                    {addProduct.description?.imgs?.length < 6 && (
+                      <div
+                        className="add-new-img add-img-video"
+                        style={{ position: "relative", marginRight: "10px" }}
+                      >
+                        <input
+                          type="file"
+                          id="imageInput"
+                          accept="image/*"
+                          style={{
+                            opacity: 0,
+                            position: "absolute",
+                            top: 0,
+                            left: 0,
+                            height: "65px",
+                            width: "65px",
+                            cursor: "pointer",
+                          }}
+                          onChange={handleImageChange}
+                          multiple
+                        />
+                        <img src={addPhoto} alt="Add" />
+                        <div>
+                          Thêm hình ảnh({addProduct.description?.imgs?.length}
+                          /6)
+                        </div>
+                        {!stateAddImg && (
+                          <div className="flex" style={{ width: "200px" }}>
+                            Chỉ được thêm tối đa 6 ảnh
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {addProduct.description?.imgs?.length > 0 && (
+                      <div
+                        className="flex list-img-add"
+                        style={{
+                          marginLeft:
+                            addProduct.description?.imgs?.length === 6
+                              ? "300px"
+                              : undefined,
+                        }}
+                      >
+                        {addProduct.description?.imgs?.map((item, index) => (
+                          <div key={index} style={{ position: "relative" }}>
+                            <div
+                              className="img-input-list"
+                              style={{ marginBottom: 0, border: "none" }}
+                              onClick={() => handleDelImgAdd(item.id)}
+                            >
+                              <img
+                                src={close}
+                                alt="Remove"
+                                style={{
+                                  top: "3px",
+                                  right: "3px",
+                                  width: "15px",
+                                  height: "15px",
+                                  borderRadius: "50%",
+                                  border: "none",
+                                }}
+                              />
+                            </div>
+                            <img src={item.img} alt="Uploaded" />
+                          </div>
+                        ))}
                       </div>
                     )}
                   </div>
-                )}
-                {filesImg.length > 0 && (
-                  <div
-                    className="flex list-img-add"
-                    style={{
-                      marginLeft: filesImg.length === 6 ? "300px" : undefined,
-                    }}
-                  >
-                    {filesImg.map((item, index) => (
-                      <div key={index} style={{ position: "relative" }}>
-                        <div
-                          className="img-input-list"
-                          style={{ marginBottom: 0, border: "none" }}
-                          onClick={() => handleDelImgAdd(item.id)}
-                        >
-                          <img
-                            src={close}
-                            alt="Remove"
+                </div>
+                <div className="add-new-video flex">
+                  <div className="flex">
+                    <p>Video sản phẩm</p>
+                    <div
+                      className="add-new-video add-img-video"
+                      style={{ position: "relative", zIndex: 0 }}
+                    >
+                      {!addProduct?.video ? (
+                        <div>
+                          <input
+                            type="file"
+                            id="videoInput"
+                            accept="video/*"
                             style={{
-                              top: "3px",
-                              right: "3px",
-                              width: "15px",
-                              height: "15px",
-                              borderRadius: "50%",
+                              opacity: 0,
+                              position: "absolute",
+                              top: 0,
+                              left: 0,
+                              height: "65px",
+                              width: "65px",
+                              cursor: "pointer",
+                              zIndex: 2,
+                            }}
+                            onChange={handleVideoChange}
+                          />
+                          <img
+                            style={{ marginTop: 5 }}
+                            src={addVideo}
+                            alt="Add Video"
+                          />
+                          <div>Thêm video</div>
+                        </div>
+                      ) : (
+                        <div style={{ position: "relative" }}>
+                          <div
+                            className="img-input-list"
+                            style={{
+                              marginBottom: 0,
                               border: "none",
                             }}
+                            onClick={handleDelVideo}
+                          >
+                            <img
+                              src={close}
+                              alt="Remove"
+                              style={{
+                                top: "3px",
+                                zIndex: 100,
+                                right: "3px",
+                                width: "15px",
+                                height: "15px",
+                                borderRadius: "50%",
+                                border: "none",
+                              }}
+                            />
+                          </div>
+                          <video
+                            src={addProduct?.video}
+                            style={{ width: "65px", height: "65px" }}
                           />
                         </div>
-                        <img src={item.img} alt="Uploaded" />
-                      </div>
-                    ))}
+                      )}
+                    </div>
                   </div>
-                )}
-              </div>
-            </div>
-            <div className="add-new-video flex">
-              <div className="flex">
-                <p>Video sản phẩm</p>
-                <div
-                  className="add-new-video add-img-video"
-                  style={{ position: "relative", zIndex: 0 }}
-                >
-                  {!fileVideo ? (
-                    <div>
-                      <input
-                        type="file"
-                        id="videoInput"
-                        accept="video/*"
-                        style={{
-                          opacity: 0,
-                          position: "absolute",
-                          top: 0,
-                          left: 0,
-                          height: "65px",
-                          width: "65px",
-                          cursor: "pointer",
-                          zIndex: 2,
-                        }}
-                        onChange={handleVideoChange}
-                      />
-                      <img
-                        style={{ marginTop: 5 }}
-                        src={addVideo}
-                        alt="Add Video"
-                      />
-                      <div>Thêm video</div>
-                    </div>
-                  ) : (
-                    <div style={{ position: "relative" }}>
-                      <div
-                        className="img-input-list"
-                        style={{
-                          marginBottom: 0,
-                          border: "none",
-                        }}
-                        onClick={handleDelVideo}
-                      >
-                        <img
-                          src={close}
-                          alt="Remove"
-                          style={{
-                            top: "3px",
-                            zIndex: 100,
-                            right: "3px",
-                            width: "15px",
-                            height: "15px",
-                            borderRadius: "50%",
-                            border: "none",
-                          }}
-                        />
-                      </div>
-                      <video
-                        // src={fileVideo}
-                        src="https://www.youtube.com/watch?v=R3q_hLgPXvU"
-                        style={{ width: "65px", height: "65px" }}
-                      />
-                    </div>
-                  )}
+                  <ul className="list-condition">
+                    <li>
+                      Kích thước: Tối đa 30Mb, độ phân giải không quá 1280x1280
+                    </li>
+                    <li>Độ dài: 10s - 60s</li>
+                    <li>Định dạng: MP4</li>
+                    <li>
+                      Lưu ý: sản phẩm có thể hiển thị trong khi video đang xử
+                      lí.
+                    </li>
+                  </ul>
+                </div>
+                <div className="add-new-name flex">
+                  <div>
+                    <p>*Tên sản phẩm</p>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Nhập vào"
+                    value={addProduct?.name}
+                    onChange={handleChangeNameProduct}
+                  />
+                </div>
+                <div className="add-new-major flex">
+                  <div>
+                    <p>*Ngành hàng</p>
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Chọn ngành hàng"
+                    onClick={handleDisplayBoxChoie}
+                    value={addProduct?.type}
+                    style={{ cursor: "pointer" }}
+                    readOnly
+                  />
+                </div>
+                <div className="add-new-description flex">
+                  <div>
+                    <p>*Mô tả sản phẩm</p>
+                  </div>
+                  <TextareaAutosize
+                    style={{ borderRadius: 5, marginLeft: 50 }}
+                    minRows={6}
+                    maxRows={30}
+                    value={addProduct.description?.content}
+                    onChange={handleChangeDescriptionProduct}
+                  />
                 </div>
               </div>
-              <ul className="list-condition">
-                <li>
-                  Kích thước: Tối đa 30Mb, độ phân giải không quá 1280x1280
-                </li>
-                <li>Độ dài: 10s - 60s</li>
-                <li>Định dạng: MP4</li>
-                <li>
-                  Lưu ý: sản phẩm có thể hiển thị trong khi video đang xử lí.
-                </li>
-              </ul>
-            </div>
-            <div className="add-new-name flex">
-              <div>
-                <p>*Tên sản phẩm</p>
-              </div>
-              <input
-                type="text"
-                placeholder="Nhập vào"
-                value={nameProduct}
-                onChange={handleChangeNameProduct}
-              />
-            </div>
-            <div className="add-new-major flex">
-              <div>
-                <p>*Ngành hàng</p>
-              </div>
-              <input
-                type="text"
-                placeholder="Chọn ngành hàng"
-                onClick={handleDisplayBoxChoie}
-                value={ngangHang}
-                style={{ cursor: "pointer" }}
-                readOnly
-              />
-            </div>
-            <div className="add-new-description flex">
-              <div>
-                <p>*Mô tả sản phẩm</p>
-              </div>
-              <TextareaAutosize
-                style={{ borderRadius: 5, marginLeft: 50 }}
-                minRows={6}
-                maxRows={30}
-                value={descriptionProduct}
-                onChange={handleChangeDescriptionProduct}
-              />
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 });

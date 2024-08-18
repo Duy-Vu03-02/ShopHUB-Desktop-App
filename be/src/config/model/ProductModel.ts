@@ -4,7 +4,16 @@ const productSchema = new mongoose.Schema(
   {
     idShop: { type: Schema.Types.ObjectId, required: true, ref: "Shopper" },
     name: { type: String, required: true, trim: true },
-    description: { type: String, trim: true },
+    description: {
+      content: { type: String },
+      imgs: [{ type: String }],
+      country: { type: String },
+      brand: { type: String },
+      material: { type: String },
+      style: { type: String },
+      sendFrom: { type: String },
+      design: { type: String },
+    },
     price: { type: Number, required: true, trim: true },
     freeShip: {
       type: { type: Boolean },
@@ -31,7 +40,7 @@ const productSchema = new mongoose.Schema(
       },
     ],
     totalProducts: { type: Number },
-    type: { type: String, trim: true },
+    type: [{ type: String, trim: true }],
     reviews: [{ idReview: { type: Schema.Types.ObjectId, ref: "Review" } }],
     totalStar: { type: Number, required: true, default: 5 },
     sold: { type: Number, required: true, default: 0 },

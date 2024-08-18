@@ -46,8 +46,8 @@ const NotClassification = React.memo(
             <p>*Kho hàng</p>
             <input
               type="text"
-              name="sold"
-              value={notClassification.sold}
+              name="totalProduct"
+              value={notClassification.totalProduct}
               onChange={handleChangeNotClass}
             />
           </div>
