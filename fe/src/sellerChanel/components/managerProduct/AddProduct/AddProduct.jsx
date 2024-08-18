@@ -43,7 +43,7 @@ const AddProduct = React.memo(() => {
 
     try {
       const { data, errors } = await client.mutate({
-        query: createProduct,
+        mutation: createProduct,
         variables: { ...dataSend },
       });
 

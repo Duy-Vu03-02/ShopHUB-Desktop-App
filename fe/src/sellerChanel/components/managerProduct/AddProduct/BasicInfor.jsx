@@ -113,17 +113,26 @@ const BasicInfor = React.memo(() => {
   };
 
   const handleDelImgAdd = (id) => {
-    setAddProduct((prev) => prev.filter((element) => element.id !== id));
+    console.log(id);
+    setAddProduct((prev) => {
+      return {
+        ...prev,
+        description: {
+          ...prev.description,
+          imgs: prev.description.imgs.filter((item) => {
+            console.log(item.id);
+            return item.id !== id;
+          }),
+        },
+      };
+    });
   };
 
   const handleDelVideo = () => {
     setAddProduct((prev) => {
       return {
         ...prev,
-        description: {
-          ...prev.description,
-          video: false,
-        },
+        video: false,
       };
     });
   };
