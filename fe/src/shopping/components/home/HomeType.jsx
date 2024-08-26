@@ -20,6 +20,7 @@ const HomeType = React.memo(() => {
         if (errors) {
           console.error(errors);
         } else if (data.top8Product.length > 0) {
+          console.log(data.top8Product);
           setListProducts((prevState) => {
             return [...prevState, ...data.top8Product];
           });

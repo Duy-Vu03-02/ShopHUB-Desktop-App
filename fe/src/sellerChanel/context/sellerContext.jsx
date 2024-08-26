@@ -5,6 +5,7 @@ export const SellerContext = createContext("");
 
 export const SellerProvider = ({ children }) => {
   const [shopData, setShopData] = useState("d");
+  const [imgs, setImgs] = useState([]);
   const [addProduct, setAddProduct] = useState({
     idShop: "",
     name: "",
@@ -12,6 +13,7 @@ export const SellerProvider = ({ children }) => {
     description: {
       content: "",
       imgs: [],
+      imgsFile: [],
       country: "",
       brand: "",
       material: "",
@@ -25,6 +27,7 @@ export const SellerProvider = ({ children }) => {
       {
         key: uuidv4(),
         data: {
+          imgFile: "",
           img: "",
           color: "",
           sizes: [
@@ -67,7 +70,14 @@ export const SellerProvider = ({ children }) => {
 
   return (
     <SellerContext.Provider
-      value={{ shopData, setShopData, addProduct, setAddProduct }}
+      value={{
+        shopData,
+        setShopData,
+        addProduct,
+        setAddProduct,
+        imgs,
+        setImgs,
+      }}
     >
       {children}
     </SellerContext.Provider>

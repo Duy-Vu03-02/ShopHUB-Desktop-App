@@ -10,8 +10,15 @@ import {
 
 export const typeDefs = gql`
   scalar Date
+  scalar Upload
+
 
   ### TYPE
+  type File {
+    filename: String!
+    mimetype: String!
+    encoding: String!
+  }
   ${addressTypeDefs}
   ${userTypeDefs}
   ${shopperTypeDefs}

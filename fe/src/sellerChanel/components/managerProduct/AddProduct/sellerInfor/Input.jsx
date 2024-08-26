@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import close from "../../../../../assets/icon/close.svg";
 import addPhoto from "../../../../../assets/icon/addPhoto.svg";
 
@@ -7,13 +7,10 @@ const Input = React.memo(({ handleDelete, inputData, handleChangeData }) => {
     const file = e.target.files[0];
 
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        return handleChangeData({
-          img: reader.result,
-        });
-      };
-      reader.readAsDataURL(file);
+      return handleChangeData({
+        img: URL.createObjectURL(file),
+        imgFile: file,
+      });
     }
   }, []);
 

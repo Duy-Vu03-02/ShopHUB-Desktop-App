@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import axios from "axios";
 import { useApolloClient } from "@apollo/client";
 import { SellerContext } from "../../../context/sellerContext";
 import { createProduct } from "../../../../graphQL/sellerChanel/query";
@@ -12,51 +13,80 @@ const AddProduct = React.memo(() => {
   const client = useApolloClient();
 
   const handleCreateProduct = async () => {
-    const dataSend = {
-      idShop: "66b9c0163157a3dc7c66516e",
-      type: addProduct.type,
-      name: addProduct.name,
-      description: {
-        ...addProduct.description,
-        imgs: addProduct.description.imgs.map((item) => item.img),
-      },
-      price: addProduct.price,
-      quantity: addProduct.quantity
-        .map((item) => {
-          const result = {
-            color: item.data.color,
-            imgs: [item.data.img],
-            sizes: item.data.sizes
-              .map((e) => {
-                if (e.checked) {
-                  return { size: e.size, total: e.total };
-                }
-                return;
-              })
-              .filter((item) => item !== undefined),
-          };
-          return result;
-        })
-        .filter((item) => item.color.trim() !== ""),
-    };
-    console.log(dataSend);
-
     try {
-      const { data, errors } = await client.mutate({
-        mutation: createProduct,
-        variables: { ...dataSend },
+      const form = new FormData();
+      const imgFileBasic = addProduct.description?.imgsFile;
+      const imgFileSeller = addProduct?.quantity?.map(
+        (item) => item.data.imgFile
+      );
+      for (let i = 0; i < imgFileBasic?.length; i++) {
+        form.append("file-imgs", imgFileBasic[i]);
+      }
+      for (let i = 0; i < imgFileSeller?.length; i++) {
+        form.append("file-imgs", imgFileSeller[i]);
+      }
+
+      const res = await axios.post("http://localhost:8080/upload", form, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
-      if (errors) {
-        console.error(errors);
-        return;
-      }
+      if (res.status === 200) {
+        const dataPath = res.data.map((item) => item.path);
 
-      if (data.createProduct) {
-        console.log(data.createProduct);
+        const dataSend = {
+          idShop: "66b9c0163157a3dc7c66516e",
+          type: addProduct.type,
+          name: addProduct.name,
+          description: {
+            ...addProduct.description,
+            imgs: dataPath
+              .map((item, index) => {
+                if (index < imgFileBasic.length) {
+                  return item;
+                }
+              })
+              .filter((item) => item !== undefined),
+          },
+          price: addProduct.price,
+          quantity: addProduct.quantity
+            .map((item, index) => {
+              const result = {
+                color: item.data.color,
+                images: [dataPath[index + imgFileBasic.length]],
+                sizes: item.data.sizes
+                  .map((e) => {
+                    if (e.checked) {
+                      return { size: e.size, total: e.total };
+                    }
+                    return;
+                  })
+                  .filter((item) => item !== undefined),
+              };
+              return result;
+            })
+            .filter((item) => item.color.trim() !== ""),
+        };
+        delete dataSend.description.imgsFile;
+
+        console.log(dataSend);
+        const { data, errors } = await client.mutate({
+          mutation: createProduct,
+          variables: { ...dataSend },
+        });
+
+        if (errors) {
+          console.error(errors);
+          return;
+        }
+
+        if (data.createProduct) {
+          console.log(data.createProduct);
+        }
       }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

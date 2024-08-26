@@ -1,5 +1,8 @@
-import { toApolloError } from "apollo-server-express";
+import multer from "multer";
+import { Request } from "express";
 import { ProductModel } from "../config/model/ProductModel";
+import { v4 as uuidv4 } from "uuid";
+import path from "path";
 
 export const createProduct = async (args: any) => {
   try {
@@ -13,6 +16,7 @@ export const createProduct = async (args: any) => {
       freeShip,
       discountCode,
     } = args;
+
     if (idShop && name && description && price && quantity && type) {
       const totalProducts = (
         await Promise.all(
@@ -116,6 +120,26 @@ export const updateProduct = async (args: any) => {
       if (update) return update;
     }
     return;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const customUpload = async () => {
+  const dirPath = path.join(__dirname, `../../public/upload`);
+
+  try {
+    const storage = multer.diskStorage({
+      destination: (req: Request, file, cb) => {
+        cb(null, dirPath);
+      },
+      filename: (req: Request, file, cb) => {
+        const ext = path.extname(file.originalname);
+        cb(null, uuidv4() + ext);
+      },
+    });
+
+    return multer({ storage });
   } catch (err) {
     console.error(err);
   }

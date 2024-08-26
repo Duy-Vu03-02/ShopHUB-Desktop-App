@@ -8,6 +8,8 @@ export const createProduct = gql`
     $price: Float!
     $type: [String]
     $quantity: [QuantityInput]!
+    $discountCode: DiscountCodeInput
+    $freeShip: FreeShipInput
   ) {
     createProduct(
       idShop: $idShop
@@ -16,6 +18,8 @@ export const createProduct = gql`
       price: $price
       type: $type
       quantity: $quantity
+      discountCode: $discountCode
+      freeShip: $freeShip
     ) {
       id
     }

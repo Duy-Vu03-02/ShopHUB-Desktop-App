@@ -19,6 +19,7 @@ const RenderProducts = React.memo(({ products }) => {
         console.error(errors);
         return;
       } else if (data.product !== null) {
+        console.log(data.product);
         setProductData(data.product);
         navigate("/product");
         return;
@@ -46,7 +47,7 @@ const RenderProducts = React.memo(({ products }) => {
               className="item-product-default"
               onClick={() => handleShowProduct(set.id)}
             >
-              <img src={set.quantity[0].images[0]} alt="img-product" />
+              <img src={set.description.imgs[0]} alt="img-product" />
               <p className="item-product-desription">{set.name}</p>
               <div
                 style={{

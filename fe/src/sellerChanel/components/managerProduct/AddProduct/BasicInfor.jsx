@@ -8,7 +8,8 @@ import { v4 as uuidv4 } from "uuid";
 import { SellerContext } from "../../../context/sellerContext";
 
 const BasicInfor = React.memo(() => {
-  const { setAddProduct, addProduct } = useContext(SellerContext);
+  const { setAddProduct, addProduct, imgs, setImgs } =
+    useContext(SellerContext);
   const [displayBoxChoie, setDisplayBoxChoie] = useState(false);
   const [stateAddImg, setStateAddImg] = useState(true);
 
@@ -74,11 +75,8 @@ const BasicInfor = React.memo(() => {
 
       const readFileAsDataURL = (file) => {
         return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () =>
-            resolve({ img: reader.result, id: uuidv4() });
-          reader.onerror = () => reject(new Error("File reading error"));
-          reader.readAsDataURL(file);
+          resolve({ img: URL.createObjectURL(file), id: uuidv4() });
+          reject(new Error("File reading error"));
         });
       };
 
@@ -90,9 +88,11 @@ const BasicInfor = React.memo(() => {
           description: {
             ...prev.description,
             imgs: imgUrls,
+            imgsFile: files,
           },
         };
       });
+      setImgs(files);
       setStateAddImg(true);
     } catch (err) {
       console.error(err);
@@ -113,14 +113,12 @@ const BasicInfor = React.memo(() => {
   };
 
   const handleDelImgAdd = (id) => {
-    console.log(id);
     setAddProduct((prev) => {
       return {
         ...prev,
         description: {
           ...prev.description,
           imgs: prev.description.imgs.filter((item) => {
-            console.log(item.id);
             return item.id !== id;
           }),
         },

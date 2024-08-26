@@ -50,6 +50,9 @@ export const top8Product = gql`
   query top8Product {
     top8Product {
       id
+      description {
+        imgs
+      }
       name
       quantity {
         images

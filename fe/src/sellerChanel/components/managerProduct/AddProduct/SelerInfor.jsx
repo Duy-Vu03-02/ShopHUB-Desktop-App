@@ -13,6 +13,7 @@ const SelerInfor = React.memo(() => {
   const init = {
     key: uuidv4(),
     data: {
+      imgFile: "",
       img: "",
       color: "",
       sizes: [
@@ -144,9 +145,13 @@ const SelerInfor = React.memo(() => {
   };
 
   const handleChangeTotal = (e, size) => {
-    const newTotal = e.target.value;
-
-    if (newTotal < 0 || parseInt(newTotal) < 0) return;
+    let newTotal = e.target.value;
+    if (newTotal === "") {
+      newTotal = 1;
+    }
+    if (isNaN(parseInt(newTotal))) {
+      return;
+    }
 
     // Cập nhật currentMain
     setCurrentMain((prev) => {
@@ -155,7 +160,7 @@ const SelerInfor = React.memo(() => {
           return {
             ...sizeObj,
             total:
-              newTotal.trim() === ""
+              newTotal === ""
                 ? ""
                 : parseInt(newTotal) > 99999999
                 ? 99999999
@@ -182,7 +187,7 @@ const SelerInfor = React.memo(() => {
                 return {
                   ...sizeObj,
                   total:
-                    newTotal.trim() === ""
+                    newTotal === ""
                       ? ""
                       : parseInt(newTotal) > 99999999
                       ? 99999999
@@ -212,15 +217,18 @@ const SelerInfor = React.memo(() => {
 
   const handleChangeNotClass = (e) => {
     try {
-      const { name, value } = e.target;
-      if (value < 0 || parseInt(value) < 0) {
+      let { name, value } = e.target;
+      if (value === "") {
+        value = 0;
+      }
+      if (isNaN(parseInt(value))) {
         return;
       }
       setAddProduct((prev) => {
         return {
           ...prev,
           [name]:
-            value.trim() === ""
+            value === ""
               ? ""
               : parseInt(value) > 99999999
               ? 99999999
